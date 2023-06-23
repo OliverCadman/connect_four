@@ -1,13 +1,16 @@
 import React from "react";
 import Board from "../components/GameArena/Board";
+import { AppStateProvider } from "../context/AppStateContext";
 
 const GameArena: React.FC = () => {
   return (
-    <main>
-      <section className="game-arena__container">
-        <Board />
-      </section>
-    </main>
+    <AppStateProvider>
+      <main>
+        <section className="game-arena__container">
+          <Board />
+        </section>
+      </main>
+    </AppStateProvider>
   );
 };
 
