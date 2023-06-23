@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useMemo } from "react";
 
 interface IAppState {
   isMobileDevice: boolean;
@@ -21,8 +21,16 @@ export const AppStateProvider: React.FC<Props> = ({ children }) => {
     isMobileDevice: false,
   });
 
+  const memoizedAppState = useMemo(
+    () => ({
+      appState,
+      setAppState,
+    }),
+    [appState]
+  );
+
   return (
-    <AppStateContext.Provider value={{ appState, setAppState }}>
+    <AppStateContext.Provider value={memoizedAppState}>
       {children}
     </AppStateContext.Provider>
   );

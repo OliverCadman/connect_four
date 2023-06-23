@@ -33,16 +33,31 @@
   height: 280px;
   margin-top: -10px;
   z-index: 2;
-
   @include tablet() {
     width: 615px;
-    height: 525px;
+    height: 528px;
     margin-top: -21px;
   }
 }
 
-.board__cell {
+.grid-cell {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+.marker-strip__container {
+  position: absolute;
+  top: -325px;
+  display: flex;
+  transform: translate(-50%, -50%);
+  width: 610px;
+  justify-content: space-around;
+}
+
+.board__layer.black,
+.board__layer.white,
+.chip {
+  pointer-events: none;
 }
