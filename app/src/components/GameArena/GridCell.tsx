@@ -5,8 +5,8 @@ interface Props {
   columnIndex: number;
   rowIndex: number;
   showMarker: boolean | null;
-  handleMouseOver: (e: BaseSyntheticEvent) => void;
-  handleMouseOut: () => void;
+  handleMouseOver?: (e: BaseSyntheticEvent) => void;
+  handleMouseOut?: () => void;
   children: React.ReactNode;
 }
 

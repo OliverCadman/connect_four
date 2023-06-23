@@ -67,9 +67,8 @@ const Board: React.FC = () => {
                             key={columnIndex}
                             rowIndex={rowIndex}
                             columnIndex={columnIndex}
-                            handleMouseOver={handleMouseOver}
                           >
-                            <RedChipSmall />
+                            {/* <RedChipSmall /> */}
                           </GridCell>
                         );
                       })}
@@ -119,7 +118,7 @@ const Board: React.FC = () => {
                             handleMouseOver={handleMouseOver}
                             handleMouseOut={handleMouseOut}
                           >
-                            <RedChipLarge className="chip" />
+                            {/* <RedChipLarge className="chip" /> */}
                           </GridCell>
                         );
                       })}
