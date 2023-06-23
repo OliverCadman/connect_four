@@ -63,7 +63,6 @@ const Board: React.FC = () => {
                       {row.map((cell, columnIndex) => {
                         return (
                           <GridCell
-                            showMarker={null}
                             key={columnIndex}
                             rowIndex={rowIndex}
                             columnIndex={columnIndex}
@@ -109,9 +108,6 @@ const Board: React.FC = () => {
                       {row.map((cell, columnIndex) => {
                         return (
                           <GridCell
-                            showMarker={
-                              columnIndex === hoverIndex && rowIndex === 0
-                            }
                             key={columnIndex}
                             columnIndex={columnIndex}
                             rowIndex={rowIndex}

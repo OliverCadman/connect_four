@@ -4,7 +4,6 @@ import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg"
 interface Props {
   columnIndex: number;
   rowIndex: number;
-  showMarker: boolean | null;
   handleMouseOver?: (e: BaseSyntheticEvent) => void;
   handleMouseOut?: () => void;
   children: React.ReactNode;
