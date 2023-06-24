@@ -50,6 +50,10 @@ const Board: React.FC = () => {
     setHoverIndex(null);
   };
 
+  const handleClick = (columnIndex: number) => {
+    game.placePiece(columnIndex);
+  };
+
   return (
     <>
       {appState.isMobileDevice ? (
@@ -66,6 +70,7 @@ const Board: React.FC = () => {
                             key={columnIndex}
                             rowIndex={rowIndex}
                             columnIndex={columnIndex}
+                            handleClick={handleClick}
                           >
                             {/* <RedChipSmall /> */}
                           </GridCell>
@@ -94,7 +99,7 @@ const Board: React.FC = () => {
                     style={
                       hoverIndex === index ? { opacity: 1 } : { opacity: 0 }
                     }
-                    key={marker}
+                    key={index}
                     className={`marker marker-${index}`}
                   />
                 );
@@ -113,6 +118,7 @@ const Board: React.FC = () => {
                             rowIndex={rowIndex}
                             handleMouseOver={handleMouseOver}
                             handleMouseOut={handleMouseOut}
+                            handleClick={handleClick}
                           >
                             {/* <RedChipLarge className="chip" /> */}
                           </GridCell>
