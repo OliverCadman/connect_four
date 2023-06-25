@@ -33,6 +33,7 @@
 .gameboard__grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   width: 327px;
   height: 280px;
   margin-top: -10px;
@@ -49,6 +50,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  outline: 1px solid red;
 }
 
 .marker-strip__container {

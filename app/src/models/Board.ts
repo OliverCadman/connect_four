@@ -31,8 +31,12 @@ export class Board {
     return this.board;
   }
 
-  setBoard(newBoard: (Counter | null)[][]) {
+  private setBoard(newBoard: (Counter | null)[][]) {
     this.board = newBoard;
+  }
+
+  private setPlayer() {
+    this.player = this.player === "playerOne" ? "playerTwo" : "playerOne";
   }
 
   isCounterOnCell(firstIndex: number, secondIndex: number) {
@@ -47,12 +51,15 @@ export class Board {
     loop1: for (let i = this.NUM_ROWS - 1; i >= 0; i--) {
       for (let j = 0; j < this.NUM_COLUMNS; j++) {
         if (j === columnIndex && board[i][j] === null) {
-          boardCopy[i][j] = new Counter("hello");
+          boardCopy[i][j] = new Counter(
+            this.player === "playerOne" ? "red" : "yellow"
+          );
           break loop1;
         }
       }
     }
 
     this.setBoard(boardCopy);
+    this.setPlayer();
   }
 }

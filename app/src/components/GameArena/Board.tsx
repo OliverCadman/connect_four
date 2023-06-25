@@ -3,10 +3,11 @@ import { ReactComponent as BoardLayerWhiteLarge } from "../../assets/images/boar
 import { ReactComponent as BoardLayerBlackLarge } from "../../assets/images/board-layer-black-large.svg";
 import { ReactComponent as BoardLayerWhiteSmall } from "../../assets/images/board-layer-white-small.svg";
 import { ReactComponent as BoardLayerBlackSmall } from "../../assets/images/board-layer-black-small.svg";
+
 import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg";
-import { ReactComponent as MarkerYellow } from "../../assets/images/marker-yellow.svg";
 
 import GridCell from "./GridCell";
+import Counter from "./Counter";
 import { Board as GameBoard } from "../../models/Board";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
@@ -15,7 +16,7 @@ import cloneDeep from "lodash.clonedeep";
 
 const Board: React.FC = () => {
   const [game, setGame] = useState<GameBoard | undefined>(
-    new GameBoard("Player One")
+    new GameBoard("PlayerOne")
   );
   const board = game && game.getBoard();
 
@@ -61,7 +62,7 @@ const Board: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(game?.board);
+    console.log(game?.board, game?.player);
   }, [game]);
 
   return (
@@ -82,7 +83,14 @@ const Board: React.FC = () => {
                             columnIndex={columnIndex}
                             handleClick={handleClick}
                           >
-                            {/* <RedChipSmall /> */}
+                            {cell ? (
+                              <Counter
+                                isMobileDevice={true}
+                                color={cell.color}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </GridCell>
                         );
                       })}
@@ -121,6 +129,7 @@ const Board: React.FC = () => {
                   return (
                     <React.Fragment key={rowIndex}>
                       {row.map((cell, columnIndex) => {
+                        console.log(cell);
                         return (
                           <GridCell
                             key={columnIndex}
@@ -130,7 +139,14 @@ const Board: React.FC = () => {
                             handleMouseOut={handleMouseOut}
                             handleClick={handleClick}
                           >
-                            {/* <RedChipLarge className="chip" /> */}
+                            {cell ? (
+                              <Counter
+                                isMobileDevice={false}
+                                color={cell.color}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </GridCell>
                         );
                       })}
