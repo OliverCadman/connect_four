@@ -18,8 +18,12 @@
 }
 
 .board__layer.black {
-  margin-top: 15px;
+  margin-top: 5px;
   z-index: 1;
+
+  @include tablet() {
+    margin-top: 15px;
+  }
 }
 
 .board__layer.white {

@@ -3,8 +3,6 @@ import { ReactComponent as BoardLayerWhiteLarge } from "../../assets/images/boar
 import { ReactComponent as BoardLayerBlackLarge } from "../../assets/images/board-layer-black-large.svg";
 import { ReactComponent as BoardLayerWhiteSmall } from "../../assets/images/board-layer-white-small.svg";
 import { ReactComponent as BoardLayerBlackSmall } from "../../assets/images/board-layer-black-small.svg";
-import { ReactComponent as RedChipLarge } from "../../assets/images/counter-red-large.svg";
-import { ReactComponent as RedChipSmall } from "../../assets/images/counter-red-small.svg";
 import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg";
 import { ReactComponent as MarkerYellow } from "../../assets/images/marker-yellow.svg";
 
@@ -13,9 +11,13 @@ import { Board as GameBoard } from "../../models/Board";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
 
+import cloneDeep from "lodash.clonedeep";
+
 const Board: React.FC = () => {
-  const game: GameBoard = new GameBoard("Player One");
-  const board = game.getBoard();
+  const [game, setGame] = useState<GameBoard | undefined>(
+    new GameBoard("Player One")
+  );
+  const board = game && game.getBoard();
 
   const NUM_MARKERS = 7;
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -43,7 +45,7 @@ const Board: React.FC = () => {
     if (target.classList.contains("grid-cell")) {
       const index = target.classList[1].split("-")[2];
       setHoverIndex(parseInt(index));
-    } else setHoverIndex(null);
+    }
   };
 
   const handleMouseOut = () => {
@@ -51,8 +53,16 @@ const Board: React.FC = () => {
   };
 
   const handleClick = (columnIndex: number) => {
-    game.placePiece(columnIndex);
+    setGame((prevGame) => {
+      const gameCopy = cloneDeep(prevGame);
+      gameCopy?.placePiece(columnIndex);
+      return gameCopy;
+    });
   };
+
+  useEffect(() => {
+    console.log(game?.board);
+  }, [game]);
 
   return (
     <>
