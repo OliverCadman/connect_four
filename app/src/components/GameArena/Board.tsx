@@ -107,7 +107,7 @@ const Board: React.FC = () => {
         <>
           <div className="board__wrapper">
             <div className="marker-strip__container">
-              {Array.from(Array(NUM_MARKERS), (marker, index) => {
+              {Array.from(Array(NUM_MARKERS), (_, index) => {
                 return (
                   <MarkerRed
                     style={
