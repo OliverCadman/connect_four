@@ -3,10 +3,15 @@
   background-color: $white;
   width: 60%;
   text-align: center;
-  padding: 0.5875rem 0;
   margin-bottom: 2rem;
   border-radius: $base-border-radius;
   position: relative;
+
+  @include desktop() {
+    width: initial;
+    padding: 0;
+    margin: 0 2.5rem;
+  }
 
   &:before {
     content: "";
@@ -20,12 +25,39 @@
     background: white;
   }
 
-  @include tablet() {
-    display: flex;
-  }
-
   .scorecard {
     position: relative;
+    padding: 0.5875rem 0;
+
+    @include tablet() {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0.5875rem 1rem;
+    }
+
+    @include desktop() {
+      display: block;
+      padding: 2.1875rem 1.5rem 0 1.5rem;
+    }
+  }
+
+  .scorecard__wrapper {
+    @include desktop() {
+      margin: 0 2rem;
+    }
+  }
+
+  .scorecard.player-two {
+    @include tablet() {
+      h2 {
+        order: 2;
+      }
+
+      p {
+        order: 1;
+      }
+    }
   }
 
   h2 {
@@ -52,9 +84,43 @@
 
   .player-icon__container.player-one {
     left: -25%;
+    @include tablet() {
+      left: -10%;
+    }
+
+    @include desktop() {
+      left: 50%;
+      top: -20%;
+      transform: translateX(-50%);
+    }
   }
 
   .player-icon__container.player-two {
     right: -25%;
+    @include tablet() {
+      right: -10%;
+    }
+
+    @include desktop() {
+      right: 50%;
+      transform: translateX(50%);
+      top: -20%;
+    }
+  }
+}
+
+.scorecard-hidden-md {
+  display: none;
+
+  @include desktop() {
+    display: block;
+
+    &.player-one {
+      order: 1;
+    }
+
+    &.player-two {
+      order: 3;
+    }
   }
 }

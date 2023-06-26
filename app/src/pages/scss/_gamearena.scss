@@ -9,10 +9,22 @@
   position: relative;
 }
 
-.scorecard__container {
+.scorecard__container-sm {
   margin: 0 auto;
   width: 90%;
   display: flex;
   justify-content: space-between;
   gap: 5%;
+
+  @include desktop() {
+    display: none;
+  }
+}
+
+.scorecard-hidden-md {
+  display: none;
+
+  @include desktop() {
+    display: block;
+  }
 }

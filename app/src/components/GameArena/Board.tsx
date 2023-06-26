@@ -61,10 +61,6 @@ const Board: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(game?.board, game?.player);
-  }, [game]);
-
   return (
     <>
       {appState.isMobileDevice ? (
@@ -104,24 +100,25 @@ const Board: React.FC = () => {
         </>
       ) : (
         <>
-          <div className="marker-strip__container">
-            {Array.from(Array(NUM_MARKERS), (marker, index) => {
-              return (
-                <MarkerRed
-                  style={hoverIndex === index ? { opacity: 1 } : { opacity: 0 }}
-                  key={index}
-                  className={`marker marker-${index}`}
-                />
-              );
-            })}
-          </div>
           <div className="board__wrapper">
+            <div className="marker-strip__container">
+              {Array.from(Array(NUM_MARKERS), (marker, index) => {
+                return (
+                  <MarkerRed
+                    style={
+                      hoverIndex === index ? { opacity: 1 } : { opacity: 0 }
+                    }
+                    key={index}
+                    className={`marker marker-${index}`}
+                  />
+                );
+              })}
+            </div>
             <div className="gameboard__grid">
               {board.map((row, rowIndex) => {
                 return (
                   <React.Fragment key={rowIndex}>
                     {row.map((cell, columnIndex) => {
-                      console.log(cell);
                       return (
                         <GridCell
                           key={columnIndex}

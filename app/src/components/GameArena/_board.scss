@@ -6,7 +6,8 @@
 
   @include desktop() {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
   }
 }
 
@@ -19,6 +20,10 @@
     width: 632px;
     height: 589.5px;
   }
+
+  @include desktop() {
+    order: 2;
+  }
 }
 
 .board__layer,
@@ -26,10 +31,6 @@
   top: 0;
   left: 0;
   position: absolute;
-
-  //   @include desktop() {
-  //     transform: translate(-50%, -50%);
-  //   }
 }
 
 .board__layer.black {
@@ -73,14 +74,14 @@
 .marker-strip__container {
   position: absolute;
   top: -35px;
+  right: 7px;
+  left: 7px;
   display: flex;
-  width: calc(100% - 20px);
   justify-content: space-around;
 }
 
 .board__layer.black,
-.board__layer.white,
-.chip {
+.board__layer.white {
   pointer-events: none;
 }
 
