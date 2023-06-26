@@ -6,8 +6,10 @@ import { ReactComponent as BoardLayerBlackSmall } from "../../assets/images/boar
 
 import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg";
 
+import Header from "./Header";
 import GridCell from "./GridCell";
 import Counter from "./Counter";
+
 import { Board as GameBoard } from "../../models/Board";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";

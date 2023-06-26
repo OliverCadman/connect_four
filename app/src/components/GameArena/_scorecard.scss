@@ -3,9 +3,13 @@
   background-color: $white;
   width: 60%;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 50px;
   border-radius: $base-border-radius;
   position: relative;
+
+  @include tablet() {
+    margin-bottom: 32px;
+  }
 
   @include desktop() {
     width: initial;
@@ -33,11 +37,12 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      padding: 0.5875rem 1rem;
+      padding: 0.3875rem 1rem;
     }
 
     @include desktop() {
       display: block;
+      margin-left: 0 3.75rem;
       padding: 2.1875rem 1.5rem 0 1.5rem;
     }
   }

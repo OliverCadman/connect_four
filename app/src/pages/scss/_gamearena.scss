@@ -1,8 +1,16 @@
 .game-arena__container {
   min-height: 100vh;
   position: relative;
-  background-color: $light-purple;
-  overflow: scroll;
+  display: flex;
+  justify-content: center;
+
+  @include tablet() {
+    align-items: flex-start;
+  }
+
+  @include desktop() {
+    display: block;
+  }
 }
 
 .relative {
@@ -21,7 +29,14 @@
   }
 }
 
-.scorecard-hidden-md {
+.header-hidden-lg {
+  display: block;
+  @include desktop() {
+    display: none;
+  }
+}
+
+.header-hidden-md {
   display: none;
 
   @include desktop() {
