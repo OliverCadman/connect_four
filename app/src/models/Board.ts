@@ -59,7 +59,7 @@ export class Board {
       }
     }
 
-    this.setBoard(boardCopy);
     this.setPlayer();
+    this.setBoard(boardCopy);
   }
 }

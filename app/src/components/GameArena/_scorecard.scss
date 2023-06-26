@@ -1,0 +1,60 @@
+.scorecard__wrapper {
+  border: 2px solid $black;
+  background-color: $white;
+  width: 60%;
+  text-align: center;
+  padding: 0.5875rem 0;
+  margin-bottom: 2rem;
+  border-radius: $base-border-radius;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    filter: $base-drop-shadow;
+    left: 0;
+    top: 0;
+    border-radius: inherit;
+    width: 100%;
+    height: 100%;
+    background: white;
+  }
+
+  @include tablet() {
+    display: flex;
+  }
+
+  .scorecard {
+    position: relative;
+  }
+
+  h2 {
+    text-transform: uppercase;
+    font-size: $fs-xs;
+    @include tablet() {
+      font-size: $fs-sm;
+    }
+  }
+
+  p {
+    font-size: 32px;
+    font-weight: bold;
+    @include tablet() {
+      font-size: $fs-lg;
+    }
+  }
+
+  .player-icon__container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .player-icon__container.player-one {
+    left: -25%;
+  }
+
+  .player-icon__container.player-two {
+    right: -25%;
+  }
+}

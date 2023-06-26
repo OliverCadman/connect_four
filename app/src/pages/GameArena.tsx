@@ -1,5 +1,6 @@
 import React from "react";
 import Board from "../components/GameArena/Board";
+import ScoreCard from "../components/GameArena/ScoreCard";
 import { AppStateProvider } from "../context/AppStateContext";
 
 const GameArena: React.FC = () => {
@@ -7,7 +8,13 @@ const GameArena: React.FC = () => {
     <AppStateProvider>
       <main>
         <section className="game-arena__container">
-          <Board />
+          <div className="board__container">
+            <div className="scorecard__container">
+              <ScoreCard player="playerOne" />
+              <ScoreCard player="playerTwo" />
+            </div>
+            <Board />
+          </div>
         </section>
       </main>
     </AppStateProvider>

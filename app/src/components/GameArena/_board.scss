@@ -3,10 +3,22 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @include desktop() {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .board__wrapper {
   position: relative;
+  width: 335px;
+  height: 315.5px;
+
+  @include tablet() {
+    width: 632px;
+    height: 589.5px;
+  }
 }
 
 .board__layer,
@@ -14,7 +26,10 @@
   top: 0;
   left: 0;
   position: absolute;
-  transform: translate(-50%, -50%);
+
+  //   @include desktop() {
+  //     transform: translate(-50%, -50%);
+  //   }
 }
 
 .board__layer.black {
@@ -36,12 +51,15 @@
   grid-template-rows: repeat(6, 1fr);
   width: 327px;
   height: 280px;
-  margin-top: -10px;
   z-index: 2;
+  top: 8px;
+  left: 4px;
+
   @include tablet() {
     width: 615px;
     height: 528px;
-    margin-top: -21px;
+    left: 8px;
+    top: 12px;
   }
 }
 
@@ -50,15 +68,13 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  outline: 1px solid red;
 }
 
 .marker-strip__container {
   position: absolute;
-  top: -325px;
+  top: -35px;
   display: flex;
-  transform: translate(-50%, -50%);
-  width: 610px;
+  width: calc(100% - 20px);
   justify-content: space-around;
 }
 
@@ -66,4 +82,29 @@
 .board__layer.white,
 .chip {
   pointer-events: none;
+}
+
+@keyframes dropCounter {
+  0% {
+    transform: translateY(-300%);
+    offset: 0;
+  }
+  50% {
+    transform: translateY(0);
+    offset: 0.6;
+  }
+  75% {
+    transform: translateY(-10%);
+    offset: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    offset: 1;
+  }
+}
+
+.counter {
+  animation-name: dropCounter;
+  animation-timing-function: cubic-bezier(0.42, 0.24, 1.1, 1);
+  animation-duration: 0.25s;
 }

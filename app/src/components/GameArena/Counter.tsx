@@ -13,11 +13,23 @@ interface Props {
 const Counter: React.FC<Props> = ({ color, isMobileDevice }) => {
   if (isMobileDevice) {
     return (
-      <>{color === "red" ? <CounterRedSmall /> : <CounterYellowSmall />}</>
+      <>
+        {color === "red" ? (
+          <CounterRedSmall className="counter" />
+        ) : (
+          <CounterYellowSmall className="counter" />
+        )}
+      </>
     );
   } else {
     return (
-      <>{color === "red" ? <CounterRedLarge /> : <CounterYellowLarge />}</>
+      <>
+        {color === "red" ? (
+          <CounterRedLarge className="counter" />
+        ) : (
+          <CounterYellowLarge className="counter" />
+        )}
+      </>
     );
   }
 };

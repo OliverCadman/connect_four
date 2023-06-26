@@ -1,4 +1,18 @@
 .game-arena__container {
   min-height: 100vh;
+  position: relative;
   background-color: $light-purple;
+  overflow: scroll;
+}
+
+.relative {
+  position: relative;
+}
+
+.scorecard__container {
+  margin: 0 auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  gap: 5%;
 }
