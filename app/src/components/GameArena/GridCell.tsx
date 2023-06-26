@@ -1,9 +1,8 @@
 import React, { BaseSyntheticEvent } from "react";
-import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg";
 
 interface Props {
   columnIndex: number;
-  rowIndex: number;
+  rowIndex?: number;
   handleMouseOver?: (e: BaseSyntheticEvent) => void;
   handleMouseOut?: () => void;
   handleClick: (columnIndex: number) => void;
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const GridCell: React.FC<Props> = ({
-  rowIndex,
   columnIndex,
   handleMouseOver,
   handleMouseOut,

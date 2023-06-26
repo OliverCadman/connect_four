@@ -6,7 +6,6 @@ import { ReactComponent as BoardLayerBlackSmall } from "../../assets/images/boar
 
 import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg";
 
-import Header from "./Header";
 import GridCell from "./GridCell";
 import Counter from "./Counter";
 
@@ -69,28 +68,32 @@ const Board: React.FC = () => {
         <>
           <div className="board__wrapper">
             <div className="gameboard__grid">
-              {board.map((row, rowIndex) => {
-                return (
-                  <React.Fragment key={rowIndex}>
-                    {row.map((cell, columnIndex) => {
-                      return (
-                        <GridCell
-                          key={columnIndex}
-                          rowIndex={rowIndex}
-                          columnIndex={columnIndex}
-                          handleClick={handleClick}
-                        >
-                          {cell ? (
-                            <Counter isMobileDevice={true} color={cell.color} />
-                          ) : (
-                            ""
-                          )}
-                        </GridCell>
-                      );
-                    })}
-                  </React.Fragment>
-                );
-              })}
+              {board &&
+                board.map((row, rowIndex) => {
+                  return (
+                    <React.Fragment key={rowIndex}>
+                      {row.map((cell, columnIndex) => {
+                        return (
+                          <GridCell
+                            key={columnIndex}
+                            rowIndex={rowIndex}
+                            columnIndex={columnIndex}
+                            handleClick={handleClick}
+                          >
+                            {cell ? (
+                              <Counter
+                                isMobileDevice={true}
+                                color={cell.color}
+                              />
+                            ) : (
+                              ""
+                            )}
+                          </GridCell>
+                        );
+                      })}
+                    </React.Fragment>
+                  );
+                })}
             </div>
             <div className="board__layer white">
               <BoardLayerWhiteSmall />
@@ -117,33 +120,34 @@ const Board: React.FC = () => {
               })}
             </div>
             <div className="gameboard__grid">
-              {board.map((row, rowIndex) => {
-                return (
-                  <React.Fragment key={rowIndex}>
-                    {row.map((cell, columnIndex) => {
-                      return (
-                        <GridCell
-                          key={columnIndex}
-                          columnIndex={columnIndex}
-                          rowIndex={rowIndex}
-                          handleMouseOver={handleMouseOver}
-                          handleMouseOut={handleMouseOut}
-                          handleClick={handleClick}
-                        >
-                          {cell ? (
-                            <Counter
-                              isMobileDevice={false}
-                              color={cell.color}
-                            />
-                          ) : (
-                            ""
-                          )}
-                        </GridCell>
-                      );
-                    })}
-                  </React.Fragment>
-                );
-              })}
+              {board &&
+                board.map((row, rowIndex) => {
+                  return (
+                    <React.Fragment key={rowIndex}>
+                      {row.map((cell, columnIndex) => {
+                        return (
+                          <GridCell
+                            key={columnIndex}
+                            columnIndex={columnIndex}
+                            rowIndex={rowIndex}
+                            handleMouseOver={handleMouseOver}
+                            handleMouseOut={handleMouseOut}
+                            handleClick={handleClick}
+                          >
+                            {cell ? (
+                              <Counter
+                                isMobileDevice={false}
+                                color={cell.color}
+                              />
+                            ) : (
+                              ""
+                            )}
+                          </GridCell>
+                        );
+                      })}
+                    </React.Fragment>
+                  );
+                })}
             </div>
             <div className="board__layer white">
               <BoardLayerWhiteLarge />
