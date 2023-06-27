@@ -25,7 +25,6 @@ interface IHighlightedCells {
 
 const Board: React.FC = () => {
   const [game, setGame] = useState<GameBoard | undefined>(new GameBoard());
-  const [winner, setWinner] = useState<Player | undefined>();
   const [highlightedCells, setHighlightedCells] = useState<
     IHighlightedCells | undefined
   >();
@@ -73,29 +72,10 @@ const Board: React.FC = () => {
     });
   };
 
-  const checkIsHighlighted = (rowIndex: number, columnIndex: number) => {
-    if (!highlightedCells) return;
-
-    console.log("ROW:", rowIndex, "COLUMN:", columnIndex);
-    console.log("HIGHLIGHTED CELLS:", highlightedCells);
-    for (let cellIndex in highlightedCells) {
-      if (
-        rowIndex === parseInt(cellIndex[0]) &&
-        columnIndex === parseInt(cellIndex[1])
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  };
-
   useEffect(() => {
     const playerHasWon = game?.playerHasWon();
 
     if (playerHasWon) {
-      setWinner(playerHasWon.player);
-
       const timeOut = setTimeout(() => {
         setHighlightedCells({
           cell1: playerHasWon.cellIndex1,

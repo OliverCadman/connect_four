@@ -50,9 +50,6 @@ export class Board {
     const board = this.getBoard();
     const boardCopy = JSON.parse(JSON.stringify(board));
 
-    let rowIndex: number = 0;
-    let colIndex: number = 0;
-
     loop1: for (let i = this.NUM_ROWS - 1; i >= 0; i--) {
       for (let j = 0; j < this.NUM_COLUMNS; j++) {
         if (j === columnIndex && board[i][j] === null) {
@@ -61,15 +58,12 @@ export class Board {
               ? this.playerOne
               : this.playerTwo
           );
-          rowIndex = i;
-          colIndex = columnIndex;
           break loop1;
         }
       }
     }
 
     this.setBoard(boardCopy);
-
     this.setPlayer();
   }
 
