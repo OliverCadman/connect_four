@@ -1,7 +1,9 @@
-export class Counter {
-  color: string;
+import { Player } from "./Player";
 
-  constructor(color: string) {
-    this.color = color;
+export class Counter {
+  player: Player;
+
+  constructor(player: Player) {
+    this.player = player;
   }
 }

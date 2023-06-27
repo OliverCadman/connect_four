@@ -1,0 +1,48 @@
+@keyframes dropCounter {
+  0% {
+    transform: translateY(-300%);
+    offset: 0;
+  }
+  50% {
+    transform: translateY(0);
+    offset: 0.6;
+  }
+  75% {
+    transform: translateY(-10%);
+    offset: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    offset: 1;
+  }
+}
+
+.counter__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.donut-highlight {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid $white;
+  border-radius: 50%;
+
+  @include tablet() {
+    width: 34px;
+    height: 34px;
+    border: 6px solid $white;
+  }
+}
+
+.counter {
+  animation-name: dropCounter;
+  animation-timing-function: cubic-bezier(0.42, 0.24, 1.1, 1);
+  animation-duration: 0.25s;
+}

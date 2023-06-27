@@ -10,15 +10,26 @@ import GridCell from "./GridCell";
 import Counter from "./Counter";
 
 import { Board as GameBoard } from "../../models/Board";
+import { Player } from "../../models/Player";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
 
 import cloneDeep from "lodash.clonedeep";
 
+interface IHighlightedCells {
+  cell1: number[];
+  cell2: number[];
+  cell3: number[];
+  cell4: number[];
+}
+
 const Board: React.FC = () => {
-  const [game, setGame] = useState<GameBoard | undefined>(
-    new GameBoard("playerOne")
-  );
+  const [game, setGame] = useState<GameBoard | undefined>(new GameBoard());
+  const [winner, setWinner] = useState<Player | undefined>();
+  const [highlightedCells, setHighlightedCells] = useState<
+    IHighlightedCells | undefined
+  >();
+
   const board = game && game.getBoard();
 
   const NUM_MARKERS = 7;
@@ -62,6 +73,44 @@ const Board: React.FC = () => {
     });
   };
 
+  const checkIsHighlighted = (rowIndex: number, columnIndex: number) => {
+    if (!highlightedCells) return;
+
+    console.log("ROW:", rowIndex, "COLUMN:", columnIndex);
+    console.log("HIGHLIGHTED CELLS:", highlightedCells);
+    for (let cellIndex in highlightedCells) {
+      if (
+        rowIndex === parseInt(cellIndex[0]) &&
+        columnIndex === parseInt(cellIndex[1])
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
+  useEffect(() => {
+    const playerHasWon = game?.playerHasWon();
+
+    if (playerHasWon) {
+      setWinner(playerHasWon.player);
+
+      const timeOut = setTimeout(() => {
+        setHighlightedCells({
+          cell1: playerHasWon.cellIndex1,
+          cell2: playerHasWon.cellIndex2,
+          cell3: playerHasWon.cellIndex3,
+          cell4: playerHasWon.cellIndex4,
+        });
+      }, 400);
+
+      return () => {
+        clearTimeout(timeOut);
+      };
+    }
+  }, [game]);
+
   return (
     <>
       {appState.isMobileDevice ? (
@@ -83,7 +132,24 @@ const Board: React.FC = () => {
                             {cell ? (
                               <Counter
                                 isMobileDevice={true}
-                                color={cell.color}
+                                color={cell.player.color}
+                                isHighlighted={
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell1[0] &&
+                                    columnIndex ===
+                                      highlightedCells.cell1[1]) ||
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell2[0] &&
+                                    columnIndex ===
+                                      highlightedCells.cell2[1]) ||
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell3[0] &&
+                                    columnIndex ===
+                                      highlightedCells.cell3[1]) ||
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell4[0] &&
+                                    columnIndex === highlightedCells.cell4[1])
+                                }
                               />
                             ) : (
                               ""
@@ -137,7 +203,24 @@ const Board: React.FC = () => {
                             {cell ? (
                               <Counter
                                 isMobileDevice={false}
-                                color={cell.color}
+                                color={cell.player.color}
+                                isHighlighted={
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell1[0] &&
+                                    columnIndex ===
+                                      highlightedCells.cell1[1]) ||
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell2[0] &&
+                                    columnIndex ===
+                                      highlightedCells.cell2[1]) ||
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell3[0] &&
+                                    columnIndex ===
+                                      highlightedCells.cell3[1]) ||
+                                  (highlightedCells &&
+                                    rowIndex === highlightedCells.cell4[0] &&
+                                    columnIndex === highlightedCells.cell4[1])
+                                }
                               />
                             ) : (
                               ""

@@ -45,17 +45,17 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(6, 1fr);
-  width: 327px;
-  height: 280px;
+  width: 325px;
+  height: 281px;
   z-index: 2;
-  top: 8px;
-  left: 4px;
+  top: 4px;
+  left: 5px;
 
   @include tablet() {
     width: 615px;
-    height: 528px;
-    left: 8px;
-    top: 12px;
+    height: 527px;
+    left: 10px;
+    top: 10px;
   }
 }
 
@@ -84,29 +84,4 @@
 .board__layer.black,
 .board__layer.white {
   pointer-events: none;
-}
-
-@keyframes dropCounter {
-  0% {
-    transform: translateY(-300%);
-    offset: 0;
-  }
-  50% {
-    transform: translateY(0);
-    offset: 0.6;
-  }
-  75% {
-    transform: translateY(-10%);
-    offset: 0.8;
-  }
-  100% {
-    transform: translateY(0);
-    offset: 1;
-  }
-}
-
-.counter {
-  animation-name: dropCounter;
-  animation-timing-function: cubic-bezier(0.42, 0.24, 1.1, 1);
-  animation-duration: 0.25s;
 }

@@ -8,28 +8,32 @@ import { ReactComponent as CounterYellowSmall } from "../../assets/images/counte
 interface Props {
   color: string;
   isMobileDevice: boolean;
+  isHighlighted: boolean | undefined;
 }
 
-const Counter: React.FC<Props> = ({ color, isMobileDevice }) => {
+const Counter: React.FC<Props> = ({ color, isMobileDevice, isHighlighted }) => {
+  console.log("IS COUNTER HIGHLIGHTED???", isHighlighted);
   if (isMobileDevice) {
     return (
-      <>
+      <div className="counter__wrapper">
+        {isHighlighted && <div className="donut-highlight"></div>}
         {color === "red" ? (
           <CounterRedSmall className="counter" />
         ) : (
           <CounterYellowSmall className="counter" />
         )}
-      </>
+      </div>
     );
   } else {
     return (
-      <>
+      <div className="counter__wrapper">
+        {isHighlighted && <div className="donut-highlight"></div>}
         {color === "red" ? (
           <CounterRedLarge className="counter" />
         ) : (
           <CounterYellowLarge className="counter" />
         )}
-      </>
+      </div>
     );
   }
 };
