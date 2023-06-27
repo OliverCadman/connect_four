@@ -10,7 +10,6 @@ import GridCell from "./GridCell";
 import Counter from "./Counter";
 
 import { Board as GameBoard } from "../../models/Board";
-import { Player } from "../../models/Player";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
 
