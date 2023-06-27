@@ -39,11 +39,6 @@ export class Board {
     this.player = this.player === "playerOne" ? "playerTwo" : "playerOne";
   }
 
-  isCounterOnCell(firstIndex: number, secondIndex: number) {
-    const board = this.getBoard();
-    return board[firstIndex][secondIndex] !== null;
-  }
-
   placePiece(columnIndex: number) {
     const board = this.getBoard();
     const boardCopy = JSON.parse(JSON.stringify(board));
