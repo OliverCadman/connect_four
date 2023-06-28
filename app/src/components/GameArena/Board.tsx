@@ -11,7 +11,6 @@ import GridCell from "./GridCell";
 import Counter from "./Counter";
 import Timer from "./Timer";
 
-import { Player } from "../../models/Player";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
 import { useGameContext } from "../../context/GameDataContext";
