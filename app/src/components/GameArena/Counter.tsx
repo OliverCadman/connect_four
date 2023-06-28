@@ -12,7 +12,6 @@ interface Props {
 }
 
 const Counter: React.FC<Props> = ({ color, isMobileDevice, isHighlighted }) => {
-  console.log("IS COUNTER HIGHLIGHTED???", isHighlighted);
   if (isMobileDevice) {
     return (
       <div className="counter__wrapper">

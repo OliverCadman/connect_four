@@ -5,14 +5,16 @@ import { ReactComponent as BoardLayerWhiteSmall } from "../../assets/images/boar
 import { ReactComponent as BoardLayerBlackSmall } from "../../assets/images/board-layer-black-small.svg";
 
 import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg";
+import { ReactComponent as MarkerYellow } from "../../assets/images/marker-yellow.svg";
 
 import GridCell from "./GridCell";
 import Counter from "./Counter";
 import Timer from "./Timer";
 
-import { Board as GameBoard } from "../../models/Board";
+import { Player } from "../../models/Player";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
+import { useGameContext } from "../../context/GameDataContext";
 
 import cloneDeep from "lodash.clonedeep";
 
@@ -24,12 +26,14 @@ interface IHighlightedCells {
 }
 
 const Board: React.FC = () => {
-  const [game, setGame] = useState<GameBoard | undefined>(new GameBoard());
+  const { gameState, setGameState } = useGameContext();
+  const board = gameState.game?.getBoard();
+
   const [highlightedCells, setHighlightedCells] = useState<
     IHighlightedCells | undefined
   >();
 
-  const board = game && game.getBoard();
+  const [timer, setTimer] = useState<number>(2);
 
   const NUM_MARKERS = 7;
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
@@ -51,6 +55,28 @@ const Board: React.FC = () => {
     }
   }, [windowWidth]);
 
+  useEffect(() => {
+    if (timer < 0) {
+      setGameState((prevGameState) => {
+        const gameCopy = cloneDeep(prevGameState.game);
+        const winner = gameCopy?.opponentWinsOnTime();
+        return {
+          ...prevGameState,
+          game: gameCopy,
+          isGameOver: true,
+          gameWinner: winner,
+        };
+      });
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+
+    return () => window.clearInterval(interval);
+  }, [timer]);
+
   const handleMouseOver = (e: BaseSyntheticEvent) => {
     const target = e.target;
     e.stopPropagation();
@@ -65,15 +91,23 @@ const Board: React.FC = () => {
   };
 
   const handleClick = (columnIndex: number) => {
-    setGame((prevGame) => {
-      const gameCopy = cloneDeep(prevGame);
+    if (gameState.isGameOver) return;
+
+    setGameState((prevGameState) => {
+      const gameCopy = cloneDeep(prevGameState.game);
       gameCopy?.placePiece(columnIndex);
-      return gameCopy;
+
+      return {
+        ...prevGameState,
+        game: gameCopy,
+      };
     });
+
+    setTimer(30);
   };
 
   useEffect(() => {
-    const playerHasWon = game?.playerHasWon();
+    const playerHasWon = gameState?.game?.playerHasWon();
 
     if (playerHasWon) {
       const timeOut = setTimeout(() => {
@@ -85,11 +119,19 @@ const Board: React.FC = () => {
         });
       }, 400);
 
+      setGameState((prevGameState) => {
+        return {
+          ...prevGameState,
+          isGameOver: true,
+          gameWinner: playerHasWon.player,
+        };
+      });
+
       return () => {
         clearTimeout(timeOut);
       };
     }
-  }, [game]);
+  }, [gameState?.game]);
 
   return (
     <>
@@ -147,6 +189,11 @@ const Board: React.FC = () => {
             <div className="board__layer black">
               <BoardLayerBlackSmall />
             </div>
+            <Timer
+              playerTurn={gameState?.game?.currentPlayer}
+              time={timer}
+              winner={gameState.gameWinner}
+            />
           </div>
         </>
       ) : (
@@ -154,8 +201,16 @@ const Board: React.FC = () => {
           <div className="board__wrapper">
             <div className="marker-strip__container">
               {Array.from(Array(NUM_MARKERS), (_, index) => {
-                return (
+                return gameState?.game?.currentPlayer.color === "red" ? (
                   <MarkerRed
+                    style={
+                      hoverIndex === index ? { opacity: 1 } : { opacity: 0 }
+                    }
+                    key={index}
+                    className={`marker marker-${index}`}
+                  />
+                ) : (
+                  <MarkerYellow
                     style={
                       hoverIndex === index ? { opacity: 1 } : { opacity: 0 }
                     }
@@ -218,7 +273,11 @@ const Board: React.FC = () => {
             <div className="board__layer black">
               <BoardLayerBlackLarge />
             </div>
-            <Timer playerTurn={game?.currentPlayer} />
+            <Timer
+              playerTurn={gameState?.game?.currentPlayer}
+              time={timer}
+              winner={gameState.gameWinner}
+            />
           </div>
         </>
       )}

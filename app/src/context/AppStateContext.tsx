@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useContext, createContext, useMemo } from "react";
+import React, { useState, useContext, createContext, useMemo } from "react";
 
 interface IAppState {
   isMobileDevice: boolean;

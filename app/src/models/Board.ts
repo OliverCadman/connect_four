@@ -11,8 +11,8 @@ export class Board {
   gameOver: boolean;
 
   constructor() {
-    this.playerOne = new Player("red");
-    this.playerTwo = new Player("yellow");
+    this.playerOne = new Player("red", "Player 1");
+    this.playerTwo = new Player("yellow", "Player 2");
 
     this.currentPlayer = this.playerOne;
     this.NUM_ROWS = 6;
@@ -86,7 +86,19 @@ export class Board {
     );
   }
 
+  opponentWinsOnTime() {
+    if (this.currentPlayer.playerName === "Player 1") {
+      this.playerTwo.incrementScore();
+      return this.playerTwo;
+    } else {
+      this.playerOne.incrementScore();
+      return this.playerOne;
+    }
+  }
+
   playerHasWon() {
+    if (this.gameOver) return;
+
     const board = this.getBoard();
 
     for (let i = 0; i < 3; i++) {
@@ -100,6 +112,7 @@ export class Board {
           )
         ) {
           this.gameOver = true;
+          board[i][j]?.player.incrementScore();
           return {
             player: board[i][j]?.player,
             cellIndex1: [i, j],
@@ -121,6 +134,7 @@ export class Board {
             board[i][j + 3]
           )
         ) {
+          board[i][j]?.player.incrementScore();
           this.gameOver = true;
           return {
             player: board[i][j]?.player,
@@ -143,6 +157,7 @@ export class Board {
             board[i + 3][j + 3]
           )
         ) {
+          board[i][j]?.player.incrementScore();
           this.gameOver = true;
           return {
             player: board[i][j]?.player,
@@ -165,6 +180,7 @@ export class Board {
             board[i - 3][j + 3]
           )
         ) {
+          board[i][j]?.player.incrementScore();
           this.gameOver = true;
           return {
             player: board[i][j]?.player,
