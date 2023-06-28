@@ -1,9 +1,6 @@
 import React from "react";
 import { Player } from "../../models/Player";
 
-import { ReactComponent as TurnBackgroundRed } from "../../assets/images/turn-background-red.svg";
-import { ReactComponent as TurnBackgroundYellow } from "../../assets/images/turn-background-yellow.svg";
-
 interface Props {
   playerTurn: Player | undefined;
 }
