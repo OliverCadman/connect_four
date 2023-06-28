@@ -32,7 +32,7 @@ const Board: React.FC = () => {
     IHighlightedCells | undefined
   >();
 
-  const [timer, setTimer] = useState<number>(2);
+  const [timer, setTimer] = useState<number>(30);
 
   const NUM_MARKERS = 7;
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
