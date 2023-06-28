@@ -8,6 +8,7 @@ export class Board {
   board: (Counter | null)[][];
   playerOne: Player;
   playerTwo: Player;
+  gameOver: boolean;
 
   constructor() {
     this.playerOne = new Player("red");
@@ -18,6 +19,8 @@ export class Board {
     this.NUM_COLUMNS = 7;
 
     this.board = this.makeBoard();
+
+    this.gameOver = false;
   }
 
   makeBoard() {
@@ -47,6 +50,8 @@ export class Board {
   }
 
   placePiece(columnIndex: number) {
+    if (this.gameOver) return;
+
     const board = this.getBoard();
     const boardCopy = JSON.parse(JSON.stringify(board));
 
@@ -94,6 +99,7 @@ export class Board {
             board[i + 3][j]
           )
         ) {
+          this.gameOver = true;
           return {
             player: board[i][j]?.player,
             cellIndex1: [i, j],
@@ -115,6 +121,7 @@ export class Board {
             board[i][j + 3]
           )
         ) {
+          this.gameOver = true;
           return {
             player: board[i][j]?.player,
             cellIndex1: [i, j],
@@ -136,6 +143,7 @@ export class Board {
             board[i + 3][j + 3]
           )
         ) {
+          this.gameOver = true;
           return {
             player: board[i][j]?.player,
             cellIndex1: [i, j],
@@ -157,6 +165,7 @@ export class Board {
             board[i - 3][j + 3]
           )
         ) {
+          this.gameOver = true;
           return {
             player: board[i][j]?.player,
             cellIndex1: [i, j],

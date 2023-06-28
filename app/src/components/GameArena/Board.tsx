@@ -8,6 +8,7 @@ import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg"
 
 import GridCell from "./GridCell";
 import Counter from "./Counter";
+import Timer from "./Timer";
 
 import { Board as GameBoard } from "../../models/Board";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
@@ -217,6 +218,7 @@ const Board: React.FC = () => {
             <div className="board__layer black">
               <BoardLayerBlackLarge />
             </div>
+            <Timer playerTurn={game?.currentPlayer} />
           </div>
         </>
       )}
