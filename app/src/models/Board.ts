@@ -167,7 +167,9 @@ export class Board {
     this.setBoard(boardCopy);
     this.setPlayer();
 
-    this.findMostConsecutiveCounters();
+    if (this.playerTwo.playerName === "CPU") {
+      this.findMostConsecutiveCounters();
+    }
   }
 
   private checkLine(

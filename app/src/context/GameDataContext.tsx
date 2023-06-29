@@ -22,7 +22,7 @@ const GameStateContext = createContext<GameStateContextType | null>(null);
 
 export const GameStateProvider: React.FC<Props> = ({ children }) => {
   const [gameState, setGameState] = useState<IGameData>({
-    game: new GameBoard(true),
+    game: new GameBoard(false),
     isGameOver: false,
     gameWinner: undefined,
   });
