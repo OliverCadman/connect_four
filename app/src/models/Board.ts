@@ -10,9 +10,15 @@ export class Board {
   playerTwo: Player;
   gameOver: boolean;
 
-  constructor() {
+  isPlayerComputer: boolean;
+
+  constructor(isPlayerComputer: boolean) {
+    this.isPlayerComputer = isPlayerComputer;
+
     this.playerOne = new Player("red", "Player 1");
-    this.playerTwo = new Player("yellow", "Player 2");
+    this.playerTwo = this.isPlayerComputer
+      ? new Player("yellow", "CPU")
+      : new Player("yellow", "Player 2");
 
     this.currentPlayer = this.playerOne;
     this.NUM_ROWS = 6;
@@ -49,6 +55,96 @@ export class Board {
       this.currentPlayer.color === "red" ? this.playerTwo : this.playerOne;
   }
 
+  private findMostConsecutiveCounters() {
+    // Method for CPU player only.
+    // Used to determine where best to place next counter.
+
+    let verticalConsecCounterArr: number[][] = [];
+    let horizontalConsecCounterArr: number[][] = [];
+    let diagLeftConsecCounterArr: number[][] = [];
+    let diagRightConsecCounterArr: number[][] = [];
+
+    const board = this.getBoard();
+
+    // Vertical
+    for (let i = this.NUM_ROWS - 1; i >= 0; i--) {
+      for (let j = 0; j < this.NUM_COLUMNS; j++) {
+        if (board[i][j]?.player.playerName === "CPU") {
+          if (board[i - 1][j]?.player.playerName === "CPU") {
+            verticalConsecCounterArr.push([i, j], [i - 1, j]);
+          }
+        } else {
+          continue;
+        }
+      }
+    }
+
+    // Horizontal
+    for (let i = this.NUM_ROWS - 1; i >= 0; i--) {
+      for (let j = 0; j < this.NUM_COLUMNS; j++) {
+        if (board[i][j]?.player.playerName === "CPU") {
+          if (board[i][j + 1]?.player.playerName === "CPU") {
+            console.log("pushing...");
+            horizontalConsecCounterArr.push([i, j], [i, j + 1]);
+          }
+        } else {
+          continue;
+        }
+      }
+    }
+
+    // Diagonal-left
+    for (let i = this.NUM_ROWS - 1; i >= 0; i--) {
+      for (let j = 0; j < this.NUM_COLUMNS; j++) {
+        if (board[i][j]?.player.playerName === "CPU") {
+          if (board[i - 1][j - 1]?.player.playerName === "CPU") {
+            diagLeftConsecCounterArr.push([i, j], [i - 1, j - 1]);
+          }
+        } else {
+          continue;
+        }
+      }
+    }
+
+    // Diagonal-right
+    for (let i = this.NUM_ROWS - 1; i >= 0; i--) {
+      for (let j = 0; j < this.NUM_COLUMNS; j++) {
+        if (board[i][j]?.player.playerName === "CPU") {
+          if (board[i - 1][j + 1]?.player.playerName === "CPU") {
+            diagRightConsecCounterArr.push([i, j], [i - 1, j + 1]);
+          }
+        } else {
+          continue;
+        }
+      }
+    }
+
+    console.log(
+      "Vertical consecutive counters: ",
+      this.removeDuplicateIndexes(verticalConsecCounterArr)
+    );
+    console.log(
+      "Horizontal consecutive counters: ",
+      this.removeDuplicateIndexes(horizontalConsecCounterArr)
+    );
+
+    console.log(
+      "Diagonal left consecutive counters:",
+      this.removeDuplicateIndexes(diagLeftConsecCounterArr)
+    );
+    console.log(
+      "Diagonal right consecutive counters:",
+      this.removeDuplicateIndexes(diagRightConsecCounterArr)
+    );
+  }
+
+  private removeDuplicateIndexes(arr: number[][]) {
+    return arr
+      .map((i) => JSON.stringify(i))
+      .filter((e, i, a) => i === a.indexOf(e))
+      .map((i) => JSON.parse(i));
+  }
+
   placePiece(columnIndex: number) {
     if (this.gameOver) return;
 
@@ -70,6 +166,8 @@ export class Board {
 
     this.setBoard(boardCopy);
     this.setPlayer();
+
+    this.findMostConsecutiveCounters();
   }
 
   private checkLine(
