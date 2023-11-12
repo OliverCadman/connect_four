@@ -11,6 +11,8 @@ import GridCell from "./GridCell";
 import Counter from "./Counter";
 import Timer from "./Timer";
 
+import { convertBoardAndCallMiniMax, miniMax } from "../../minimax/minimax";
+
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
 import { useGameContext } from "../../context/GameDataContext";
@@ -69,12 +71,38 @@ const Board: React.FC = () => {
       return;
     }
 
-    const interval = window.setInterval(() => {
-      setTimer((prevTimer) => prevTimer - 1);
-    }, 1000);
+    // const interval = window.setInterval(() => {
+    //   setTimer((prevTimer) => prevTimer - 1);
+    // }, 1000);
 
-    return () => window.clearInterval(interval);
+    // return () => window.clearInterval(interval);
   }, [timer]);
+
+  const updateGameState = (column) => {
+    if (gameState.isGameOver) return;
+    setGameState((prevGameState) => {
+      const gameCopy = cloneDeep(prevGameState.game);
+      gameCopy?.placePiece(column);
+
+      return {
+        ...prevGameState,
+        game: gameCopy,
+      };
+    });
+
+    setTimer(30);
+  };
+
+  useEffect(() => {
+    if (gameState?.game?.currentPlayer.playerName === "CPU") {
+      const [col, _] = convertBoardAndCallMiniMax(board);
+      const timeout = setTimeout(() => {
+        updateGameState(col);
+      }, 300);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [board]);
 
   const handleMouseOver = (e: BaseSyntheticEvent) => {
     const target = e.target;
@@ -90,19 +118,7 @@ const Board: React.FC = () => {
   };
 
   const handleClick = (columnIndex: number) => {
-    if (gameState.isGameOver) return;
-
-    setGameState((prevGameState) => {
-      const gameCopy = cloneDeep(prevGameState.game);
-      gameCopy?.placePiece(columnIndex);
-
-      return {
-        ...prevGameState,
-        game: gameCopy,
-      };
-    });
-
-    setTimer(30);
+    updateGameState(columnIndex);
   };
 
   useEffect(() => {
