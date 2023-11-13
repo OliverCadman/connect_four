@@ -23,6 +23,10 @@
     order: 2;
   }
 
+  @include desktop-h-768() {
+    transform: scale(0.8);
+  }
+
   // @include desktop-h-768() {
   //   transform: scale(0.8);
   // }

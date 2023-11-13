@@ -11,33 +11,31 @@ const GameArena: React.FC = () => {
 
   return (
     <>
-      <main className="main-bg">
-        <div className="border__wrapper">
-          <section className="game-arena__container">
-            <div className="header-hidden-md">
+      <main className="border__wrapper">
+        <section className="game-arena__container">
+          <div className="header-hidden-md">
+            <Header />
+          </div>
+          <div className="board__container">
+            <div className="header-hidden-lg">
               <Header />
             </div>
-            <div className="board__container">
-              <div className="header-hidden-lg">
-                <Header />
-              </div>
-              <div className="scorecard__container-sm">
-                <ScoreCard player={gameState.game?.playerOne} />
-                <ScoreCard player={gameState.game?.playerTwo} />
-              </div>
-
-              <div className="scorecard-hidden-md player-one">
-                <ScoreCard player={gameState.game?.playerOne} />
-              </div>
-              <div className="scorecard-hidden-md player-two">
-                <ScoreCard player={gameState.game?.playerTwo} />
-              </div>
-              <Board />
+            <div className="scorecard__container-sm">
+              <ScoreCard player={gameState.game?.playerOne} />
+              <ScoreCard player={gameState.game?.playerTwo} />
             </div>
-          </section>
-          <BottomBorder />
-        </div>
+
+            <div className="scorecard-hidden-md player-one">
+              <ScoreCard player={gameState.game?.playerOne} />
+            </div>
+            <div className="scorecard-hidden-md player-two">
+              <ScoreCard player={gameState.game?.playerTwo} />
+            </div>
+            <Board />
+          </div>
+        </section>
       </main>
+      <BottomBorder winningPlayer={gameState.gameWinner?.playerName} />
     </>
   );
 };

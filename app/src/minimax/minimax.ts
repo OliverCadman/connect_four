@@ -215,7 +215,7 @@ const isTerminalNode = (board: (number | null)[][]) =>
 
 export const convertBoardAndCallMiniMax = (board: Board["board"]) => {
   const convertedBoard = convertBoard(JSON.parse(JSON.stringify(board)));
-  const [col, value] = miniMax(convertedBoard, 1, -9999999, 9999999, true);
+  const [col, value] = miniMax(convertedBoard, 7, -9999999, 9999999, true);
 
   return [col, value];
 };

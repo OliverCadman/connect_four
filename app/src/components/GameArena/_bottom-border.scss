@@ -3,11 +3,29 @@
   height: 236px;
   background-color: $dark-purple;
   border-radius: 60px 60px 0 0;
+  position: absolute;
+  bottom: 0;
 
 
   @include tablet() {
     height: 200px;
-    position: absolute;
-    bottom: 0;
+
   }
+
+  @include desktop-h-768() {
+    height: 155px !important;
+  }
+
+  @include desktop() {
+    height: 200px;
+  }
+
+}
+
+.bottom-border-pink {
+  background-color: $pink;
+}
+
+.bottom-border-yellow {
+  background-color: $yellow;
 }

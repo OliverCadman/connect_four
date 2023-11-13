@@ -4,13 +4,13 @@ import { GameStateProvider } from "./context/GameDataContext";
 
 function App() {
   return (
-    <>
+    <div className="main-bg">
       <AppStateProvider>
         <GameStateProvider>
           <GameArena />
         </GameStateProvider>
       </AppStateProvider>
-    </>
+    </div>
   );
 }
 
