@@ -46,3 +46,7 @@
   animation-timing-function: cubic-bezier(0.42, 0.24, 1.1, 1);
   animation-duration: 0.25s;
 }
+
+@include desktop-h-768() {
+  .counter {}
+}

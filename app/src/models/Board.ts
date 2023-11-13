@@ -9,8 +9,9 @@ export class Board {
   playerOne: Player;
   playerTwo: Player;
   gameOver: boolean;
-
+  isDrawn: boolean;
   isPlayerComputer: boolean;
+  numCountersPlaced: number;
 
   constructor(isPlayerComputer: boolean) {
     this.isPlayerComputer = isPlayerComputer;
@@ -27,6 +28,8 @@ export class Board {
     this.board = this.makeBoard();
 
     this.gameOver = false;
+    this.isDrawn = false;
+    this.numCountersPlaced = 0;
   }
 
   makeBoard() {
@@ -73,6 +76,7 @@ export class Board {
       }
     }
 
+    this.numCountersPlaced++;
     this.setBoard(board);
     this.setPlayer();
   }
@@ -102,6 +106,9 @@ export class Board {
   }
 
   playerHasWon() {
+    // Game is drawn
+    this.setGameoverIfDrawn();
+
     if (this.gameOver) return;
 
     const board = this.getBoard();
@@ -196,6 +203,15 @@ export class Board {
           };
         }
       }
+    }
+  }
+
+  private setGameoverIfDrawn() {
+    if (this.numCountersPlaced === 42) {
+      console.log("hellooooo");
+      this.gameOver = true;
+      this.isDrawn = true;
+      return false;
     }
   }
 }

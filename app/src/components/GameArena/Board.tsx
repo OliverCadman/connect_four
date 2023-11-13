@@ -11,7 +11,7 @@ import GridCell from "./GridCell";
 import Counter from "./Counter";
 import Timer from "./Timer";
 
-import { convertBoardAndCallMiniMax, miniMax } from "../../minimax/minimax";
+import { convertBoardAndCallMiniMax } from "../../minimax/minimax";
 
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
@@ -80,6 +80,7 @@ const Board: React.FC = () => {
 
   const updateGameState = (column) => {
     if (gameState.isGameOver) return;
+
     setGameState((prevGameState) => {
       const gameCopy = cloneDeep(prevGameState.game);
       gameCopy?.placePiece(column);
@@ -94,11 +95,11 @@ const Board: React.FC = () => {
   };
 
   useEffect(() => {
-    if (gameState?.game?.currentPlayer.playerName === "CPU") {
+    if (!gameState.game?.gameOver) {
       const [col, _] = convertBoardAndCallMiniMax(board);
       const timeout = setTimeout(() => {
         updateGameState(col);
-      }, 300);
+      }, 20);
 
       return () => clearTimeout(timeout);
     }
@@ -125,14 +126,12 @@ const Board: React.FC = () => {
     const playerHasWon = gameState?.game?.playerHasWon();
 
     if (playerHasWon) {
-      const timeOut = setTimeout(() => {
-        setHighlightedCells({
-          cell1: playerHasWon.cellIndex1,
-          cell2: playerHasWon.cellIndex2,
-          cell3: playerHasWon.cellIndex3,
-          cell4: playerHasWon.cellIndex4,
-        });
-      }, 400);
+      setHighlightedCells({
+        cell1: playerHasWon.cellIndex1,
+        cell2: playerHasWon.cellIndex2,
+        cell3: playerHasWon.cellIndex3,
+        cell4: playerHasWon.cellIndex4,
+      });
 
       setGameState((prevGameState) => {
         return {
@@ -141,10 +140,15 @@ const Board: React.FC = () => {
           gameWinner: playerHasWon.player,
         };
       });
-
-      return () => {
-        clearTimeout(timeOut);
-      };
+    } else if (gameState?.game?.gameOver && gameState?.game?.isDrawn) {
+      setGameState((prevGameState) => {
+        return {
+          ...prevGameState,
+          isGameOver: true,
+          isDrawn: true,
+          gameWinner: "Draw",
+        };
+      });
     }
   }, [gameState?.game]);
 
@@ -208,6 +212,7 @@ const Board: React.FC = () => {
               playerTurn={gameState?.game?.currentPlayer}
               time={timer}
               winner={gameState.gameWinner}
+              isDrawn={gameState.isDrawn}
             />
           </div>
         </>
@@ -283,15 +288,16 @@ const Board: React.FC = () => {
                 })}
             </div>
             <div className="board__layer white">
-              <BoardLayerWhiteLarge />
+              <BoardLayerWhiteLarge className="board" />
             </div>
             <div className="board__layer black">
-              <BoardLayerBlackLarge />
+              <BoardLayerBlackLarge className="board" />
             </div>
             <Timer
               playerTurn={gameState?.game?.currentPlayer}
               time={timer}
               winner={gameState.gameWinner}
+              isDrawn={gameState.isDrawn}
             />
           </div>
         </>

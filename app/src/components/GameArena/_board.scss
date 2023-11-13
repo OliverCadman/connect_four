@@ -1,4 +1,7 @@
 .board__container {
+  position: relative;
+  z-index: 3;
+
   @include desktop() {
     display: flex;
     justify-content: center;
@@ -19,6 +22,10 @@
   @include desktop() {
     order: 2;
   }
+
+  // @include desktop-h-768() {
+  //   transform: scale(0.8);
+  // }
 }
 
 .board__layer,
@@ -85,3 +92,4 @@
 .board__layer.white {
   pointer-events: none;
 }
+

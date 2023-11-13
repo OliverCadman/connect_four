@@ -7,6 +7,7 @@ interface IGameData {
   game: GameBoard | undefined;
   isGameOver: boolean;
   gameWinner: Player | undefined;
+  isDrawn: boolean;
 }
 
 type GameStateContextType = {
@@ -25,6 +26,7 @@ export const GameStateProvider: React.FC<Props> = ({ children }) => {
     game: new GameBoard(true),
     isGameOver: false,
     gameWinner: undefined,
+    isDrawn: false,
   });
 
   return (

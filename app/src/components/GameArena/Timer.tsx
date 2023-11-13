@@ -2,12 +2,13 @@ import React from "react";
 import { Player } from "../../models/Player";
 
 interface Props {
-  playerTurn: Player | undefined;
-  winner: Player | undefined;
+  playerTurn?: Player;
+  winner?: Player;
+  isDrawn?: boolean;
   time: number;
 }
 
-const Timer: React.FC<Props> = ({ playerTurn, time, winner }) => {
+const Timer: React.FC<Props> = ({ playerTurn, time, winner, isDrawn }) => {
   return (
     <div className="timer__container">
       {!winner ? (
@@ -24,8 +25,14 @@ const Timer: React.FC<Props> = ({ playerTurn, time, winner }) => {
       ) : (
         <div className="timer__wrapper game-over">
           <div className="timer__wrapper-content">
-            <p className="player-info">{winner.playerName}</p>
-            <p className="player-result">WINS</p>
+            {!isDrawn ? (
+              <>
+                <p className="player-info">{winner.playerName}</p>
+                <p className="player-result">WINS</p>
+              </>
+            ) : (
+              <p className="player-result">DRAW</p>
+            )}
           </div>
           <div className="restart-btn__container">
             <button type="button" className="restart-btn">

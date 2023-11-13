@@ -18,3 +18,9 @@ $desktop-width: 1220px;
     @content;
   }
 }
+
+@mixin desktop-h-768() {
+  @media screen and (min-width: 1440px) and (min-height: 758px) {
+    @content;
+  }
+}

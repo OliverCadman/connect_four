@@ -39,7 +39,7 @@ const convertBoard = (board: (Counter | null)[][]): (number | null)[][] => {
       }
     }
   }
-  console.log(convertedBoard);
+
   return convertedBoard;
 };
 
@@ -215,7 +215,7 @@ const isTerminalNode = (board: (number | null)[][]) =>
 
 export const convertBoardAndCallMiniMax = (board: Board["board"]) => {
   const convertedBoard = convertBoard(JSON.parse(JSON.stringify(board)));
-  const [col, value] = miniMax(convertedBoard, 5, -9999999, 9999999, true);
+  const [col, value] = miniMax(convertedBoard, 1, -9999999, 9999999, true);
 
   return [col, value];
 };
@@ -280,7 +280,7 @@ const miniMax = (
         const boardCopy = JSON.parse(JSON.stringify(board));
 
         dropPiece(boardCopy, row, col, PLAYER_PIECE);
-        const newScore = miniMax(boardCopy, depth - 1, alpha, beta, true);
+        const newScore = miniMax(boardCopy, depth - 1, alpha, beta, false);
 
         if (newScore && newScore[1] && newScore[1] < value) {
           value = newScore[1];
