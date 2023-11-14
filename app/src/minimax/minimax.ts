@@ -214,7 +214,7 @@ const isTerminalNode = (board: (number | null)[][]) =>
   isWinningMove(board, BOT_PIECE) ||
   getValidLocations(board).length === 0;
 
-export const convertBoardAndCallMiniMax = (board: Board["board"]) => {
+export const convertBoardAndCallMiniMax = (board?: Board["board"]) => {
   const convertedBoard = convertBoard(JSON.parse(JSON.stringify(board)));
   const [col, value] = miniMax(convertedBoard, 1, -Infinity, Infinity, false);
 

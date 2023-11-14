@@ -78,7 +78,7 @@ const Board: React.FC = () => {
     // return () => window.clearInterval(interval);
   }, [timer]);
 
-  const updateGameState = (column) => {
+  const updateGameState = (column: number) => {
     if (gameState.isGameOver) return;
 
     setGameState((prevGameState) => {
@@ -98,7 +98,7 @@ const Board: React.FC = () => {
     if (gameState?.game?.currentPlayer.playerName === "CPU") {
       const [col, _] = convertBoardAndCallMiniMax(board);
       const timeout = setTimeout(() => {
-        updateGameState(col);
+        col && updateGameState(col);
       }, 300);
 
       return () => clearTimeout(timeout);
