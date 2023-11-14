@@ -18,7 +18,6 @@ const getValidLocations = (board: (number | null)[][]) => {
       }
     }
   }
-
   return validLocations;
 };
 
@@ -40,6 +39,7 @@ const convertBoard = (board: (Counter | null)[][]): (number | null)[][] => {
     }
   }
 
+  console.log(convertedBoard);
   return convertedBoard;
 };
 
@@ -58,6 +58,7 @@ const dropPiece = (
   piece: number
 ) => {
   if (row && col) board[row][col] = piece;
+
   return board;
 };
 
@@ -127,7 +128,7 @@ const evaluateWindow = (window: (number | unknown)[], piece: number) => {
   }
 
   if (window.filter((i) => piece === i).length === 4) {
-    score += 100;
+    score += 50;
   } else if (
     window.filter((i) => i === piece).length === 3 &&
     window.filter((i) => i === null).length === 1
@@ -144,7 +145,7 @@ const evaluateWindow = (window: (number | unknown)[], piece: number) => {
     window.filter((i) => i === opponentPiece).length === 3 &&
     window.filter((i) => i === null).length === 1
   ) {
-    score -= 4;
+    score -= 1;
   }
 
   return score;
@@ -215,7 +216,7 @@ const isTerminalNode = (board: (number | null)[][]) =>
 
 export const convertBoardAndCallMiniMax = (board: Board["board"]) => {
   const convertedBoard = convertBoard(JSON.parse(JSON.stringify(board)));
-  const [col, value] = miniMax(convertedBoard, 7, -9999999, 9999999, true);
+  const [col, value] = miniMax(convertedBoard, 1, -Infinity, Infinity, false);
 
   return [col, value];
 };
@@ -241,56 +242,57 @@ const miniMax = (
     } else {
       return [null, scorePosition(board, BOT_PIECE)];
     }
-  } else {
-    if (maximisingPlayer) {
-      let value: number = -999999;
+  }
+  if (maximisingPlayer) {
+    let value: number = -99999;
 
-      const randomLocationIndex = Math.floor(
-        Math.random() * validLocations.length
-      );
-      let column = validLocations[randomLocationIndex];
+    const randomLocationIndex = Math.floor(
+      Math.random() * validLocations.length
+    );
+    let column = validLocations[randomLocationIndex];
 
-      for (let col of validLocations) {
-        let row = getNextOpenRow(board, col);
-        const boardCopy = JSON.parse(JSON.stringify(board));
-        dropPiece(boardCopy, row, col, BOT_PIECE);
-        const newScore = miniMax(boardCopy, depth - 1, alpha, beta, false);
+    for (let col of validLocations) {
+      let row = getNextOpenRow(board, col);
 
-        if (newScore && newScore[1] && newScore[1] > value) {
-          value = newScore[1];
-          column = col;
-        }
+      const boardCopy = JSON.parse(JSON.stringify(board));
+      dropPiece(boardCopy, row, col, BOT_PIECE);
+      const newScore = miniMax(boardCopy, depth - 1, alpha, beta, false);
 
-        alpha = Math.max(alpha, value);
-        if (alpha >= beta) break;
+      if (newScore && newScore[1] && newScore[1] > value) {
+        value = newScore[1];
+        column = col;
       }
 
-      return [column, value];
-    } else {
-      let value: number = 999999;
-
-      const randomLocationIndex = Math.floor(
-        Math.random() * validLocations.length
-      );
-      let column = validLocations[randomLocationIndex];
-
-      for (let col of validLocations) {
-        let row = getNextOpenRow(board, col);
-
-        const boardCopy = JSON.parse(JSON.stringify(board));
-
-        dropPiece(boardCopy, row, col, PLAYER_PIECE);
-        const newScore = miniMax(boardCopy, depth - 1, alpha, beta, false);
-
-        if (newScore && newScore[1] && newScore[1] < value) {
-          value = newScore[1];
-          column = col;
-        }
-
-        beta = Math.min(beta, value);
-        if (alpha >= beta) break;
-      }
-      return [column, value];
+      alpha = Math.max(alpha, value);
+      if (alpha >= beta) break;
     }
+
+    return [column, value];
+  } else {
+    let value: number = 99999;
+
+    const randomLocationIndex = Math.floor(
+      Math.random() * validLocations.length
+    );
+    let column = validLocations[randomLocationIndex];
+
+    for (let col of validLocations) {
+      let row = getNextOpenRow(board, col);
+
+      const boardCopy = JSON.parse(JSON.stringify(board));
+
+      dropPiece(boardCopy, row, col, PLAYER_PIECE);
+      const newScore = miniMax(boardCopy, depth - 1, alpha, beta, true);
+
+      if (newScore && newScore[1] && newScore[1] < value) {
+        value = newScore[1];
+        column = col;
+      }
+
+      beta = Math.min(beta, value);
+      if (alpha >= beta) break;
+    }
+
+    return [column, value];
   }
 };

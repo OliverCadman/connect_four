@@ -95,11 +95,11 @@ const Board: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!gameState.game?.gameOver) {
+    if (gameState?.game?.currentPlayer.playerName === "CPU") {
       const [col, _] = convertBoardAndCallMiniMax(board);
       const timeout = setTimeout(() => {
         updateGameState(col);
-      }, 20);
+      }, 300);
 
       return () => clearTimeout(timeout);
     }
@@ -138,15 +138,6 @@ const Board: React.FC = () => {
           ...prevGameState,
           isGameOver: true,
           gameWinner: playerHasWon.player,
-        };
-      });
-    } else if (gameState?.game?.gameOver && gameState?.game?.isDrawn) {
-      setGameState((prevGameState) => {
-        return {
-          ...prevGameState,
-          isGameOver: true,
-          isDrawn: true,
-          gameWinner: "Draw",
         };
       });
     }

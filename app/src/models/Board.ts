@@ -208,7 +208,6 @@ export class Board {
 
   private setGameoverIfDrawn() {
     if (this.numCountersPlaced === 42) {
-      console.log("hellooooo");
       this.gameOver = true;
       this.isDrawn = true;
       return false;
