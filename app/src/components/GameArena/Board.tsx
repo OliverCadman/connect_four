@@ -97,8 +97,9 @@ const Board: React.FC = () => {
   useEffect(() => {
     if (gameState?.game?.currentPlayer.playerName === "CPU") {
       const [col, _] = convertBoardAndCallMiniMax(board);
+      console.log(col);
       const timeout = setTimeout(() => {
-        col && updateGameState(col);
+        col !== null && updateGameState(col);
       }, 300);
 
       return () => clearTimeout(timeout);
