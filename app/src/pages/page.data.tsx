@@ -4,12 +4,12 @@ import Home from "./Home";
 
 const pageData: RouterType[] = [
   {
-    path: "/connect_four/home",
+    path: "/home",
     title: "Home",
     element: <Home />,
   },
   {
-    path: "/connect_four",
+    path: "/game-arena",
     title: "Game Arena",
     element: <GameArena />,
   },

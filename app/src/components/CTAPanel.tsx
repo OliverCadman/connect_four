@@ -21,7 +21,7 @@ const CTAPanel = () => {
           ]}
           text="PLAY VS PLAYER"
           icon={<PlayerVsPlayerIcon />}
-          path="/connect_four"
+          path="/game-arena"
           state={{ mode: "player" }}
         />
         <CTAButton
@@ -34,7 +34,7 @@ const CTAPanel = () => {
             "border-shadowed",
           ]}
           text="PLAY VS CPU"
-          path="/connect_four"
+          path="/game-arena"
           state={{ mode: "cpu" }}
           icon={<PlayerVsCPUIcon />}
         />
