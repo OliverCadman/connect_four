@@ -1,4 +1,3 @@
-import React from "react";
 import CTAPanel from "../components/CTAPanel";
 
 const Home = () => {
