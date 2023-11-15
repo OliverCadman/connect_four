@@ -6,10 +6,12 @@
   position: absolute;
   bottom: 0;
 
+  @include mob-360() {
+    height: 210px;
+  }
 
   @include tablet() {
     height: 200px;
-
   }
 
   @include desktop-h-768() {

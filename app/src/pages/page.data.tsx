@@ -9,7 +9,7 @@ const pageData: RouterType[] = [
     element: <Home />,
   },
   {
-    path: "/game-arena",
+    path: "/connect_four/game_arena",
     title: "Game Arena",
     element: <GameArena />,
   },

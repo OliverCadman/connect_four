@@ -21,7 +21,7 @@ const CTAPanel = () => {
           ]}
           text="PLAY VS PLAYER"
           icon={<PlayerVsPlayerIcon />}
-          path="/game-arena"
+          path="/connect_four/game_arena"
           state={{ mode: "player" }}
         />
         <CTAButton

@@ -53,6 +53,8 @@ const Board: React.FC = () => {
         game: state.mode === "cpu" ? new Gameboard(true) : new Gameboard(false),
       };
     });
+
+    console.log(window.innerWidth, window.innerHeight);
   }, [state]);
 
   useEffect(() => {
