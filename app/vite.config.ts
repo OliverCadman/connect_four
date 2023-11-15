@@ -3,7 +3,15 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [svgr(), react()],
-  base: "./",
+export default defineConfig(({ command }) => {
+  const config = {
+    plugins: [svgr(), react()],
+    base: "/",
+  };
+
+  if (command !== "serve") {
+    config.base = "/connect_four/";
+  }
+
+  return config;
 });
