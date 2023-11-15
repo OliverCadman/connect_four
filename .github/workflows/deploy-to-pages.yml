@@ -39,7 +39,7 @@ jobs:
         run: npm install
         working-directory: ./app
       - name: Build
-        run: npm run build cp ./app/dist/index.html ./app/dist/404.html
+        run: npm run build && cp ./app/dist/index.html ./app/dist/404.html
         working-directory: ./app
       - name: Setup Pages
         uses: actions/configure-pages@v3
