@@ -4,10 +4,11 @@ import { Board as GameBoard } from "../models/Board";
 import { Player } from "../models/Player";
 
 interface IGameData {
-  game: GameBoard | undefined;
+  game?: GameBoard;
   isGameOver: boolean;
-  gameWinner: Player | undefined;
+  gameWinner?: Player;
   isDrawn: boolean;
+  gameMode?: string;
 }
 
 type GameStateContextType = {

@@ -3,6 +3,7 @@ import { ReactComponent as BoardLayerWhiteLarge } from "../../assets/images/boar
 import { ReactComponent as BoardLayerBlackLarge } from "../../assets/images/board-layer-black-large.svg";
 import { ReactComponent as BoardLayerWhiteSmall } from "../../assets/images/board-layer-white-small.svg";
 import { ReactComponent as BoardLayerBlackSmall } from "../../assets/images/board-layer-black-small.svg";
+import { Board as Gameboard } from "../../models/Board";
 
 import { ReactComponent as MarkerRed } from "../../assets/images/marker-red.svg";
 import { ReactComponent as MarkerYellow } from "../../assets/images/marker-yellow.svg";
@@ -16,6 +17,7 @@ import { convertBoardAndCallMiniMax } from "../../minimax/minimax";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
 import { useGameContext } from "../../context/GameDataContext";
+import { useLocation } from "react-router-dom";
 
 import cloneDeep from "lodash.clonedeep";
 
@@ -30,6 +32,8 @@ const Board: React.FC = () => {
   const { gameState, setGameState } = useGameContext();
   const board = gameState.game?.getBoard();
 
+  const { state } = useLocation();
+
   const [highlightedCells, setHighlightedCells] = useState<
     IHighlightedCells | undefined
   >();
@@ -41,6 +45,15 @@ const Board: React.FC = () => {
 
   const windowWidth = useWindowWidth();
   const { appState, setAppState } = useAppStateContext();
+
+  useEffect(() => {
+    setGameState((prevGameState) => {
+      return {
+        ...prevGameState,
+        game: state.mode === "cpu" ? new Gameboard(true) : new Gameboard(false),
+      };
+    });
+  }, [state]);
 
   useEffect(() => {
     if (windowWidth && windowWidth < 768) {
@@ -97,7 +110,7 @@ const Board: React.FC = () => {
   useEffect(() => {
     if (gameState?.game?.currentPlayer.playerName === "CPU") {
       const [col, _] = convertBoardAndCallMiniMax(board);
-      console.log(col);
+
       const timeout = setTimeout(() => {
         col !== null && updateGameState(col);
       }, 300);

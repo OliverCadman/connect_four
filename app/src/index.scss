@@ -26,6 +26,10 @@ html, body, #root {
   padding: 0;
 }
 
+a {
+  text-decoration: none;
+}
+
 button {
   border: 0;
   background: none;
@@ -36,11 +40,54 @@ button {
     sans-serif;
 }
 
+.h-100 {
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.centered {
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
 .main-bg {
   background-color: $light-purple;
   position: relative;
   overflow: scroll;
   height: 100%;
+}
+
+.border-shadowed {
+  border: 4px solid $black;
+  box-shadow: 0 10px 0 $black;
+  transition: all 0.2s ease;
+
+  @include desktop() {
+    &:hover {
+      box-shadow: 0 10px 0 $white;
+      border: 4px solid $white;
+    }
+  }
+  
 }
 
 // Page SCSS Imports
@@ -53,3 +100,5 @@ button {
 @import "./components/GameArena/header";
 @import "./components/GameArena/counter";
 @import "./components/GameArena/timer";
+@import "./components/cta-panel";
+@import "./components/cta-button";

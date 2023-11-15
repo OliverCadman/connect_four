@@ -1,0 +1,30 @@
+.cta-btn {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: $black;
+    border-radius: 20px;
+    width: 335px;
+    height: 72px;
+    padding: 0 1.063rem 0 1.25rem;
+    
+    &:not(.game-rule-btn) {
+        margin-bottom: 1.875rem;
+    }
+
+    &:is(.btn-pink) {
+        color: $white;
+    }
+}
+
+.btn-yellow {
+    background-color: $yellow;
+}
+
+.btn-white {
+    background-color: $white;
+}
+
+.btn-pink {
+    background-color: $pink;
+}
+
