@@ -4,7 +4,11 @@ import pageData from "../pages/page.data";
 
 const Router = () => {
   const pageRoutes = pageData.map((page: RouterType, index) => {
-    return <Route path={page.path} key={index} element={page.element} />;
+    if (page.title === "Home") {
+      return (
+        <Route path={page.path} key={index} element={page.element} index />
+      );
+    } else return <Route path={page.path} key={index} element={page.element} />;
   });
 
   return <Routes>{pageRoutes}</Routes>;
