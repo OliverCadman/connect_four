@@ -28,6 +28,7 @@ export const GameStateProvider: React.FC<Props> = ({ children }) => {
     isGameOver: false,
     gameWinner: undefined,
     isDrawn: false,
+    gameMode: localStorage.getItem("game_mode") || undefined,
   });
 
   return (

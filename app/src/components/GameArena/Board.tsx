@@ -50,12 +50,25 @@ const Board: React.FC = () => {
     setGameState((prevGameState) => {
       return {
         ...prevGameState,
-        game: state.mode === "cpu" ? new Gameboard(true) : new Gameboard(false),
+        gameMode: state && state.mode,
       };
     });
 
+    localStorage.setItem("game_mode", state.mode);
     console.log(window.innerWidth, window.innerHeight);
   }, [state]);
+
+  useEffect(() => {
+    setGameState((prevGameState) => {
+      return {
+        ...prevGameState,
+        game:
+          prevGameState.gameMode === "cpu"
+            ? new Gameboard(true)
+            : new Gameboard(false),
+      };
+    });
+  }, [gameState.gameMode]);
 
   useEffect(() => {
     if (windowWidth && windowWidth < 768) {

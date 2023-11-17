@@ -3,7 +3,8 @@
   height: 236px;
   background-color: $dark-purple;
   border-radius: 60px 60px 0 0;
-
+  position: absolute; 
+  bottom: 0;
 
   @include mob-360() {
     height: 210px;
@@ -14,6 +15,7 @@
   }
 
   @include desktop-h-768() {
+    position: static;
     height: 155px !important;
   }
 
