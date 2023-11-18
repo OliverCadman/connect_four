@@ -48,11 +48,9 @@ const Board: React.FC = () => {
   const { appState, setAppState } = useAppStateContext();
 
   useEffect(() => {
+    console.log(state);
     const savedGameMode = localStorage.getItem("game_mode");
-    if (
-      savedGameMode ||
-      (savedGameMode && state && !state.hasOwnProperty("mode"))
-    ) {
+    if (savedGameMode && state && !state.hasOwnProperty("mode")) {
       setGameState((prevGameState) => {
         return {
           ...prevGameState,
@@ -65,6 +63,7 @@ const Board: React.FC = () => {
       state.hasOwnProperty("mode") &&
       savedGameMode !== state.mode
     ) {
+      console.log("helloooooo");
       setGameState((prevGameState) => {
         return {
           ...prevGameState,
@@ -73,15 +72,7 @@ const Board: React.FC = () => {
       });
 
       localStorage.setItem("game_mode", state.mode);
-    } else if (state && state.hasOwnProperty("mode")) {
-      setGameState((prevGameState) => {
-        return {
-          ...prevGameState,
-          gameMode: state.mode,
-        };
-      });
-      localStorage.setItem("game_mode", state.mode);
-    } else {
+    } else if (!savedGameMode) {
       navigate("/connect_four/");
     }
   }, [state]);
