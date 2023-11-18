@@ -17,7 +17,7 @@ import { convertBoardAndCallMiniMax } from "../../minimax/minimax";
 import { useWindowWidth } from "../../hooks/UseWindowWidth";
 import { useAppStateContext } from "../../context/AppStateContext";
 import { useGameContext } from "../../context/GameDataContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import cloneDeep from "lodash.clonedeep";
 
@@ -33,6 +33,7 @@ const Board: React.FC = () => {
   const board = gameState.game?.getBoard();
 
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const [highlightedCells, setHighlightedCells] = useState<
     IHighlightedCells | undefined
@@ -48,7 +49,10 @@ const Board: React.FC = () => {
 
   useEffect(() => {
     const savedGameMode = localStorage.getItem("game_mode");
-    if (savedGameMode && !state.hasOwnProperty("mode")) {
+    if (
+      savedGameMode ||
+      (savedGameMode && state && !state.hasOwnProperty("mode"))
+    ) {
       setGameState((prevGameState) => {
         return {
           ...prevGameState,
@@ -57,6 +61,7 @@ const Board: React.FC = () => {
       });
     } else if (
       savedGameMode &&
+      state &&
       state.hasOwnProperty("mode") &&
       savedGameMode !== state.mode
     ) {
@@ -68,6 +73,8 @@ const Board: React.FC = () => {
       });
 
       localStorage.setItem("game_mode", state.mode);
+    } else {
+      navigate("/connect_four/");
     }
   }, [state]);
 
