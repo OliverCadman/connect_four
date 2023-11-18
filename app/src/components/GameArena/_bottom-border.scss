@@ -10,6 +10,11 @@
     height: 210px;
   }
 
+  @include mob-h-800 {
+    position: static;
+    height: 350px;
+  }
+
   @include tablet() {
     height: 200px;
   }
