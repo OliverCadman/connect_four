@@ -47,10 +47,15 @@ const Board: React.FC = () => {
   const { appState, setAppState } = useAppStateContext();
 
   useEffect(() => {
+    console.log(state.hasOwnProperty("mode"));
     setGameState((prevGameState) => {
       return {
         ...prevGameState,
-        gameMode: state && state.mode,
+        gameMode: state.hasOwnProperty("mode")
+          ? state.mode
+          : prevGameState
+          ? prevGameState
+          : "player",
       };
     });
 
