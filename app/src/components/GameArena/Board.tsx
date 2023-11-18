@@ -60,10 +60,11 @@ const Board: React.FC = () => {
         };
       });
     } else if (
-      savedGameMode &&
-      state &&
-      state.hasOwnProperty("mode") &&
-      savedGameMode !== state.mode
+      (savedGameMode &&
+        state &&
+        state.hasOwnProperty("mode") &&
+        savedGameMode !== state.mode) ||
+      (state && state.hasOwnProperty("mode"))
     ) {
       setGameState((prevGameState) => {
         return {
