@@ -1,6 +1,7 @@
 import React from "react";
 import { ReactComponent as PlayerOneIcon } from "../../assets/images/player-one.svg";
 import { ReactComponent as PlayerTwoIcon } from "../../assets/images/player-two.svg";
+import { ReactComponent as CPUIcon } from "../../assets/images/cpu.svg";
 import { Player } from "../../models/Player";
 
 interface Props {
@@ -29,6 +30,8 @@ const ScoreCard: React.FC<Props> = ({ player }) => {
       >
         {player?.playerName === "Player 1" ? (
           <PlayerOneIcon />
+        ) : player?.playerName === "CPU" ? (
+          <CPUIcon />
         ) : (
           <PlayerTwoIcon />
         )}
