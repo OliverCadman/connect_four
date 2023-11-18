@@ -48,7 +48,7 @@ const Board: React.FC = () => {
 
   useEffect(() => {
     const savedGameMode = localStorage.getItem("game_mode");
-    if (savedGameMode) {
+    if (savedGameMode && !state.hasOwnProperty("mode")) {
       setGameState((prevGameState) => {
         return {
           ...prevGameState,
