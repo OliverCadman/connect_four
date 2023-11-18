@@ -162,7 +162,9 @@ const Board: React.FC = () => {
         col !== null && updateGameState(col);
       }, 300);
 
-      return () => clearTimeout(timeout);
+      return () => {
+        clearTimeout(timeout);
+      };
     }
   }, [board]);
 
@@ -180,7 +182,7 @@ const Board: React.FC = () => {
   };
 
   const handleClick = (columnIndex: number) => {
-    console.log("hello");
+    if (gameState?.game?.currentPlayer.playerName === "CPU") return;
     updateGameState(columnIndex);
   };
 
