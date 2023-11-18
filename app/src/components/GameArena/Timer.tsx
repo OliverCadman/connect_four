@@ -6,9 +6,16 @@ interface Props {
   winner?: Player;
   isDrawn?: boolean;
   time: number;
+  restartGame: () => void;
 }
 
-const Timer: React.FC<Props> = ({ playerTurn, time, winner, isDrawn }) => {
+const Timer: React.FC<Props> = ({
+  playerTurn,
+  time,
+  winner,
+  isDrawn,
+  restartGame,
+}) => {
   return (
     <div className="timer__container">
       {!winner ? (
@@ -35,7 +42,7 @@ const Timer: React.FC<Props> = ({ playerTurn, time, winner, isDrawn }) => {
             )}
           </div>
           <div className="restart-btn__container">
-            <button type="button" className="restart-btn">
+            <button type="button" className="restart-btn" onClick={restartGame}>
               Play Again
             </button>
           </div>

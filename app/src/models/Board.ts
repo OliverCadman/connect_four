@@ -12,6 +12,8 @@ export class Board {
   isDrawn: boolean;
   isPlayerComputer: boolean;
   numCountersPlaced: number;
+  playerPlayingFirst: Player;
+  gameWinner?: Player;
 
   constructor(isPlayerComputer: boolean) {
     this.isPlayerComputer = isPlayerComputer;
@@ -22,6 +24,7 @@ export class Board {
       : new Player("yellow", "Player 2");
 
     this.currentPlayer = this.playerOne;
+    this.playerPlayingFirst = this.playerOne;
     this.NUM_ROWS = 6;
     this.NUM_COLUMNS = 7;
 
@@ -43,6 +46,18 @@ export class Board {
     }
 
     return board;
+  }
+
+  restartGame() {
+    this.board = this.makeBoard();
+    this.gameOver = false;
+    this.numCountersPlaced = 0;
+    this.playerPlayingFirst =
+      this.playerPlayingFirst === this.playerOne
+        ? this.playerTwo
+        : this.playerOne;
+    this.currentPlayer = this.playerPlayingFirst;
+    return this.board;
   }
 
   getBoard() {

@@ -119,6 +119,19 @@ const Board: React.FC = () => {
     // return () => window.clearInterval(interval);
   }, [timer]);
 
+  const restartGame = () => {
+    setGameState((prevGameState) => {
+      return {
+        ...prevGameState,
+        gameBoard: prevGameState.game?.restartGame(),
+        isGameOver: false,
+        gameWinner: undefined,
+      };
+    });
+
+    setHighlightedCells(undefined);
+  };
+
   const updateGameState = (column: number) => {
     if (gameState.isGameOver) return;
 
@@ -161,6 +174,7 @@ const Board: React.FC = () => {
   };
 
   const handleClick = (columnIndex: number) => {
+    console.log("hello");
     updateGameState(columnIndex);
   };
 
@@ -246,6 +260,7 @@ const Board: React.FC = () => {
               time={timer}
               winner={gameState.gameWinner}
               isDrawn={gameState.isDrawn}
+              restartGame={restartGame}
             />
           </div>
         </>
@@ -331,6 +346,7 @@ const Board: React.FC = () => {
               time={timer}
               winner={gameState.gameWinner}
               isDrawn={gameState.isDrawn}
+              restartGame={restartGame}
             />
           </div>
         </>
