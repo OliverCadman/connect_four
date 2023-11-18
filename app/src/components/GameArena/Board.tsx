@@ -60,11 +60,10 @@ const Board: React.FC = () => {
         };
       });
     } else if (
-      (savedGameMode &&
-        state &&
-        state.hasOwnProperty("mode") &&
-        savedGameMode !== state.mode) ||
-      (state && state.hasOwnProperty("mode"))
+      savedGameMode &&
+      state &&
+      state.hasOwnProperty("mode") &&
+      savedGameMode !== state.mode
     ) {
       setGameState((prevGameState) => {
         return {
@@ -73,6 +72,14 @@ const Board: React.FC = () => {
         };
       });
 
+      localStorage.setItem("game_mode", state.mode);
+    } else if (state && state.hasOwnProperty("mode")) {
+      setGameState((prevGameState) => {
+        return {
+          ...prevGameState,
+          gameMode: state.mode,
+        };
+      });
       localStorage.setItem("game_mode", state.mode);
     } else {
       navigate("/connect_four/");
