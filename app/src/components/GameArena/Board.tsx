@@ -47,20 +47,24 @@ const Board: React.FC = () => {
   const { appState, setAppState } = useAppStateContext();
 
   useEffect(() => {
-    console.log(state.hasOwnProperty("mode"));
+    const savedGameMode = localStorage.getItem("game_mode");
     setGameState((prevGameState) => {
-      return {
-        ...prevGameState,
-        gameMode: state.hasOwnProperty("mode")
-          ? state.mode
-          : prevGameState
-          ? prevGameState
-          : "player",
-      };
+      if (savedGameMode) {
+        return {
+          ...prevGameState,
+          gameMode: savedGameMode,
+        };
+      } else {
+        return {
+          ...prevGameState,
+          gameMode: state.mode,
+        };
+      }
     });
 
-    localStorage.setItem("game_mode", state.mode);
-    console.log(window.innerWidth, window.innerHeight);
+    !savedGameMode &&
+      state.hasOwnProperty("mode") &&
+      localStorage.setItem("game_mode", state.mode);
   }, [state]);
 
   useEffect(() => {
