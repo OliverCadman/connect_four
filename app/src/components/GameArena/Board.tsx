@@ -50,30 +50,37 @@ const Board: React.FC = () => {
   useEffect(() => {
     console.log(state);
     const savedGameMode = localStorage.getItem("game_mode");
-    if (savedGameMode && state && !state.hasOwnProperty("mode")) {
-      setGameState((prevGameState) => {
-        return {
-          ...prevGameState,
-          gameMode: savedGameMode,
-        };
-      });
-    } else if (
-      savedGameMode &&
-      state &&
-      state.hasOwnProperty("mode") &&
-      savedGameMode !== state.mode
-    ) {
-      console.log("helloooooo");
-      setGameState((prevGameState) => {
-        return {
-          ...prevGameState,
-          gameMode: state.mode,
-        };
-      });
-
-      localStorage.setItem("game_mode", state.mode);
+    if (savedGameMode) {
+      if (state && !state.hasOwnProperty("mode")) {
+        setGameState((prevGameState) => {
+          return {
+            ...prevGameState,
+            gameMode: savedGameMode,
+          };
+        });
+      } else if (
+        state &&
+        state.hasOwnProperty("mode") &&
+        savedGameMode !== state.mode
+      ) {
+        setGameState((prevGameState) => {
+          return {
+            ...prevGameState,
+            gameMode: state.mode,
+          };
+        });
+        localStorage.setItem("game_mode", state.mode);
+      }
     } else if (!savedGameMode) {
-      navigate("/connect_four/");
+      if (state && state.hasOwnProperty("mode")) {
+        setGameState((prevGameState) => {
+          return {
+            ...prevGameState,
+            gameMode: state.mode,
+          };
+        });
+        localStorage.setItem("game_mode", state.mode);
+      } else navigate("/connect_four/");
     }
   }, [state]);
 
