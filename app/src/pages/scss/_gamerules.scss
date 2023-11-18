@@ -1,0 +1,66 @@
+.gamerule-panel__header {
+    margin: 1.825rem 0;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.gamerule-panel__rules {
+    padding: 0 1.25rem;
+
+    @include tablet() {
+        padding: 0 2.125rem;
+    }
+    h2 {
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        text-transform: uppercase;
+        color: $light-purple;
+    }
+
+    ol li span, p {
+        opacity: 0.75;
+    }
+
+    ol li:before {
+        opacity: 1;
+        font-weight: 600;
+    }
+
+
+    &.steps {
+        margin-top: 2.063rem;
+        margin-bottom: 3.75rem;
+
+        ol {
+            list-style-position: inside;
+            counter-reset: item;
+            padding-left: 1.188rem;
+
+            li {
+                display: block;
+                &:before {
+                    content: counter(item) " ";
+                    counter-increment: item;
+                    width: 1.188rem;
+                    display: inline-block;
+                    margin-left: -1.188rem;
+                }
+
+                &:not(:last-of-type) {
+                    margin-bottom: 1rem;
+                }
+
+            }
+        }
+        
+    }
+}
+
+.check-icon__wrapper {
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+}

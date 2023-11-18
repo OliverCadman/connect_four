@@ -1,0 +1,27 @@
+.panel__container {
+    width: 100%;
+    max-width: 335px;
+    position: relative;
+
+
+    @include tablet() {
+        max-width: 480px;
+
+        &.panel__container-purple {
+            background-color: $dark-purple;
+             border-radius: 40px;
+            border: 4px solid $black;
+            box-shadow: 0 10px 0 $black;
+        }
+    }
+   
+
+    &.panel__container-white {
+        background-color: $white;
+        border-radius: 40px;
+        border: 4px solid $black;
+        box-shadow: 0 10px 0 $black;
+    }
+
+
+}

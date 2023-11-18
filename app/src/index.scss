@@ -89,10 +89,6 @@ button {
   }
   
 }
-
-// Page SCSS Imports
-@import "./pages/scss/gamearena";
-
 // Component SCSS Imports
 @import "./components/GameArena/board";
 @import "./components/GameArena/scorecard";
@@ -102,3 +98,9 @@ button {
 @import "./components/GameArena/timer";
 @import "./components/cta-panel";
 @import "./components/cta-button";
+@import "./components/shared/panel-container";
+
+// Page SCSS Imports
+@import "./pages/scss/gamearena";
+@import "./pages/scss/gamerules";
+
