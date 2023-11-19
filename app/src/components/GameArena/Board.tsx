@@ -21,23 +21,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import cloneDeep from "lodash.clonedeep";
 
-interface IHighlightedCells {
-  cell1: number[];
-  cell2: number[];
-  cell3: number[];
-  cell4: number[];
-}
-
 const Board: React.FC = () => {
   const { gameState, setGameState } = useGameContext();
   const board = gameState.game?.getBoard();
 
   const { state } = useLocation();
   const navigate = useNavigate();
-
-  const [highlightedCells, setHighlightedCells] = useState<
-    IHighlightedCells | undefined
-  >();
 
   const [timer, setTimer] = useState<number>(30);
 
@@ -139,10 +128,9 @@ const Board: React.FC = () => {
         gameBoard: prevGameState.game?.restartGame(),
         isGameOver: false,
         gameWinner: undefined,
+        highlightedCells: undefined,
       };
     });
-
-    setHighlightedCells(undefined);
   };
 
   const updateGameState = (column: number) => {
@@ -197,18 +185,17 @@ const Board: React.FC = () => {
     const playerHasWon = gameState?.game?.playerHasWon();
 
     if (playerHasWon) {
-      setHighlightedCells({
-        cell1: playerHasWon.cellIndex1,
-        cell2: playerHasWon.cellIndex2,
-        cell3: playerHasWon.cellIndex3,
-        cell4: playerHasWon.cellIndex4,
-      });
-
       setGameState((prevGameState) => {
         return {
           ...prevGameState,
           isGameOver: true,
           gameWinner: playerHasWon.player,
+          highlightedCells: {
+            cell1: playerHasWon.cellIndex1,
+            cell2: playerHasWon.cellIndex2,
+            cell3: playerHasWon.cellIndex3,
+            cell4: playerHasWon.cellIndex4,
+          },
         };
       });
     }
@@ -237,21 +224,26 @@ const Board: React.FC = () => {
                                 isMobileDevice={true}
                                 color={cell.player.color}
                                 isHighlighted={
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell1[0] &&
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell1[0] &&
                                     columnIndex ===
-                                      highlightedCells.cell1[1]) ||
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell2[0] &&
+                                      gameState.highlightedCells.cell1[1]) ||
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell2[0] &&
                                     columnIndex ===
-                                      highlightedCells.cell2[1]) ||
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell3[0] &&
+                                      gameState.highlightedCells.cell2[1]) ||
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell3[0] &&
                                     columnIndex ===
-                                      highlightedCells.cell3[1]) ||
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell4[0] &&
-                                    columnIndex === highlightedCells.cell4[1])
+                                      gameState.highlightedCells.cell3[1]) ||
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell4[0] &&
+                                    columnIndex ===
+                                      gameState.highlightedCells.cell4[1])
                                 }
                               />
                             ) : (
@@ -323,21 +315,26 @@ const Board: React.FC = () => {
                                 isMobileDevice={false}
                                 color={cell.player.color}
                                 isHighlighted={
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell1[0] &&
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell1[0] &&
                                     columnIndex ===
-                                      highlightedCells.cell1[1]) ||
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell2[0] &&
+                                      gameState.highlightedCells.cell1[1]) ||
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell2[0] &&
                                     columnIndex ===
-                                      highlightedCells.cell2[1]) ||
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell3[0] &&
+                                      gameState.highlightedCells.cell2[1]) ||
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell3[0] &&
                                     columnIndex ===
-                                      highlightedCells.cell3[1]) ||
-                                  (highlightedCells &&
-                                    rowIndex === highlightedCells.cell4[0] &&
-                                    columnIndex === highlightedCells.cell4[1])
+                                      gameState.highlightedCells.cell3[1]) ||
+                                  (gameState.highlightedCells &&
+                                    rowIndex ===
+                                      gameState.highlightedCells.cell4[0] &&
+                                    columnIndex ===
+                                      gameState.highlightedCells.cell4[1])
                                 }
                               />
                             ) : (

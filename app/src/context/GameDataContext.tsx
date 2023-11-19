@@ -11,6 +11,14 @@ interface IGameData {
   isDrawn: boolean;
   gameMode?: string;
   gameBoard?: (Counter | null)[][];
+  highlightedCells?: IHighlightedCells;
+}
+
+interface IHighlightedCells {
+  cell1: number[];
+  cell2: number[];
+  cell3: number[];
+  cell4: number[];
 }
 
 type GameStateContextType = {
@@ -33,6 +41,7 @@ export const GameStateProvider: React.FC<Props> = ({ children }) => {
     isDrawn: false,
     gameMode: localStorage.getItem("game_mode") || undefined,
     gameBoard: initalizedGame.getBoard(),
+    highlightedCells: undefined,
   });
 
   return (

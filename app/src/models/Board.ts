@@ -23,8 +23,8 @@ export class Board {
       ? new Player("yellow", "CPU")
       : new Player("yellow", "Player 2");
 
-    this.currentPlayer = this.playerOne;
     this.playerPlayingFirst = this.playerOne;
+    this.currentPlayer = this.playerOne;
     this.NUM_ROWS = 6;
     this.NUM_COLUMNS = 7;
 
@@ -48,14 +48,29 @@ export class Board {
     return board;
   }
 
+  restartMatch() {
+    const board = this.restartGame();
+    for (let player of Array.of(this.playerOne, this.playerTwo)) {
+      player.score = 0;
+    }
+    this.currentPlayer = this.playerOne;
+    return board;
+  }
+
+  private changeStartingPlayer() {
+    return this.playerPlayingFirst.playerName === "Player 1"
+      ? this.playerTwo
+      : this.playerOne;
+  }
+
   restartGame() {
+    console.log("i have been called");
     this.board = this.makeBoard();
     this.gameOver = false;
     this.numCountersPlaced = 0;
-    this.playerPlayingFirst =
-      this.playerPlayingFirst === this.playerOne
-        ? this.playerTwo
-        : this.playerOne;
+    console.log(this.playerPlayingFirst);
+
+    this.playerPlayingFirst = this.changeStartingPlayer();
     this.currentPlayer = this.playerPlayingFirst;
     return this.board;
   }
