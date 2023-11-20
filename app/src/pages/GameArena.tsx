@@ -37,6 +37,7 @@ const GameArena: React.FC = () => {
             <Board />
           </div>
         </section>
+        <BottomBorder winningPlayer={gameState.gameWinner?.playerName} />
       </main>
       {appState.showMenu ? (
         <>
@@ -45,7 +46,6 @@ const GameArena: React.FC = () => {
       ) : (
         ""
       )}
-      <BottomBorder winningPlayer={gameState.gameWinner?.playerName} />
     </>
   );
 };
