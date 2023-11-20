@@ -28,8 +28,6 @@ const Board: React.FC = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const [timer, setTimer] = useState<number>(30);
-
   const NUM_MARKERS = 7;
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
@@ -37,7 +35,6 @@ const Board: React.FC = () => {
   const { appState, setAppState } = useAppStateContext();
 
   useEffect(() => {
-    console.log(state);
     const savedGameMode = localStorage.getItem("game_mode");
     if (savedGameMode) {
       if (state && !state.hasOwnProperty("mode")) {
@@ -81,6 +78,8 @@ const Board: React.FC = () => {
           prevGameState.gameMode === "cpu"
             ? new Gameboard(true)
             : new Gameboard(false),
+        timerPaused: false,
+        timer: 30,
       };
     });
   }, [gameState.gameMode]);
@@ -100,7 +99,8 @@ const Board: React.FC = () => {
   }, [windowWidth]);
 
   useEffect(() => {
-    if (timer < 0) {
+    if (gameState.timer < 0) {
+      console.log("opponent wins on time");
       setGameState((prevGameState) => {
         const gameCopy = cloneDeep(prevGameState.game);
         const winner = gameCopy?.opponentWinsOnTime();
@@ -114,12 +114,18 @@ const Board: React.FC = () => {
       return;
     }
 
-    // const interval = window.setInterval(() => {
-    //   setTimer((prevTimer) => prevTimer - 1);
-    // }, 1000);
-
-    // return () => window.clearInterval(interval);
-  }, [timer]);
+    if (!gameState.timerPaused) {
+      const interval = window.setInterval(() => {
+        setGameState((prevGameState) => {
+          return {
+            ...prevGameState,
+            timer: prevGameState.timer - 1,
+          };
+        });
+      }, 1000);
+      return () => window.clearInterval(interval);
+    }
+  }, [gameState.timer, gameState.timerPaused]);
 
   const restartGame = () => {
     setGameState((prevGameState) => {
@@ -129,6 +135,7 @@ const Board: React.FC = () => {
         isGameOver: false,
         gameWinner: undefined,
         highlightedCells: undefined,
+        timer: 30,
       };
     });
   };
@@ -143,10 +150,9 @@ const Board: React.FC = () => {
       return {
         ...prevGameState,
         game: gameCopy,
+        timer: 30,
       };
     });
-
-    setTimer(30);
   };
 
   useEffect(() => {
@@ -264,7 +270,7 @@ const Board: React.FC = () => {
             </div>
             <Timer
               playerTurn={gameState?.game?.currentPlayer}
-              time={timer}
+              time={gameState.timer}
               winner={gameState.gameWinner}
               isDrawn={gameState.isDrawn}
               restartGame={restartGame}
@@ -355,7 +361,7 @@ const Board: React.FC = () => {
             </div>
             <Timer
               playerTurn={gameState?.game?.currentPlayer}
-              time={timer}
+              time={gameState.timer}
               winner={gameState.gameWinner}
               isDrawn={gameState.isDrawn}
               restartGame={restartGame}

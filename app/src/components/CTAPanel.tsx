@@ -21,11 +21,12 @@ const CTAPanel = () => {
               "btn-yellow",
               "border-shadowed",
             ]}
-            text="PLAY VS PLAYER"
             icon={<PlayerVsPlayerIcon />}
             path="/connect_four/game_arena"
             state={{ mode: "player" }}
-          />
+          >
+            PLAY VS PLAYER
+          </CTAButton>
           <CTAButton
             isLink={true}
             classNames={[
@@ -35,11 +36,12 @@ const CTAPanel = () => {
               "btn-pink",
               "border-shadowed",
             ]}
-            text="PLAY VS CPU"
             path="/connect_four/game_arena"
             state={{ mode: "cpu" }}
             icon={<PlayerVsCPUIcon />}
-          />
+          >
+            PLAY VS CPU
+          </CTAButton>
           <CTAButton
             isLink={true}
             path="/connect_four/game_rules"
@@ -51,8 +53,9 @@ const CTAPanel = () => {
               "border-shadowed",
               "game-rule-btn",
             ]}
-            text="GAME RULES"
-          />
+          >
+            GAME RULES
+          </CTAButton>
         </div>
       </div>
     </PanelContainer>

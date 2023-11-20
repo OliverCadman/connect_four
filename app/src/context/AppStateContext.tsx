@@ -2,6 +2,7 @@ import React, { useState, useContext, createContext, useMemo } from "react";
 
 interface IAppState {
   isMobileDevice: boolean;
+  showMenu: boolean;
 }
 
 type AppStateContextType = {
@@ -18,6 +19,7 @@ const AppStateContext = createContext<AppStateContextType | null>(null);
 export const AppStateProvider: React.FC<Props> = ({ children }) => {
   const [appState, setAppState] = useState<IAppState>({
     isMobileDevice: false,
+    showMenu: false,
   });
 
   const memoizedAppState = useMemo(

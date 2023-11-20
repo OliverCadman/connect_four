@@ -69,11 +69,15 @@ button {
   justify-content: space-between;
 }
 
-.main-bg {
+.game-bg {
   background-color: $light-purple;
   position: relative;
   overflow: scroll;
   height: 100%;
+}
+
+.home-bg {
+  background-color: $dark-purple;
 }
 
 .border-shadowed {
@@ -90,6 +94,7 @@ button {
   
 }
 // Component SCSS Imports
+@import "./components/GameArena/menu";
 @import "./components/GameArena/board";
 @import "./components/GameArena/scorecard";
 @import "./components/GameArena/bottom-border";

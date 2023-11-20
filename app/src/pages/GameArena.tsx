@@ -5,13 +5,16 @@ import Header from "../components/GameArena/Header";
 import BottomBorder from "../components/GameArena/BottomBorder";
 
 import { useGameContext } from "../context/GameDataContext";
+import { useAppStateContext } from "../context/AppStateContext";
+import Menu from "../components/GameArena/Menu";
 
 const GameArena: React.FC = () => {
   const { gameState } = useGameContext();
+  const { appState } = useAppStateContext();
 
   return (
     <>
-      <main className="border__wrapper">
+      <main className="border__wrapper game-bg">
         <section className="game-arena__container">
           <div className="header-hidden-md">
             <Header />
@@ -35,6 +38,13 @@ const GameArena: React.FC = () => {
           </div>
         </section>
       </main>
+      {appState.showMenu ? (
+        <>
+          <Menu /> <div className="opaque-overlay"></div>
+        </>
+      ) : (
+        ""
+      )}
       <BottomBorder winningPlayer={gameState.gameWinner?.playerName} />
     </>
   );

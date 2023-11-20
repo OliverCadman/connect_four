@@ -12,6 +12,8 @@ interface IGameData {
   gameMode?: string;
   gameBoard?: (Counter | null)[][];
   highlightedCells?: IHighlightedCells;
+  timerPaused?: boolean;
+  timer: number;
 }
 
 interface IHighlightedCells {
@@ -35,13 +37,15 @@ const GameStateContext = createContext<GameStateContextType | null>(null);
 export const GameStateProvider: React.FC<Props> = ({ children }) => {
   const initalizedGame = new GameBoard(true);
   const [gameState, setGameState] = useState<IGameData>({
-    game: new GameBoard(true),
+    game: undefined,
     isGameOver: false,
     gameWinner: undefined,
     isDrawn: false,
     gameMode: localStorage.getItem("game_mode") || undefined,
     gameBoard: initalizedGame.getBoard(),
     highlightedCells: undefined,
+    timerPaused: false,
+    timer: 2,
   });
 
   return (
