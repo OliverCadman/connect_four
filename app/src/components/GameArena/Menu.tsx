@@ -17,6 +17,7 @@ const Menu = () => {
         gameWinner: undefined,
         highlightedCells: undefined,
         timerPaused: undefined,
+        timer: 30,
       };
     });
   };
