@@ -14,7 +14,7 @@ $desktop-width: 1220px;
 }
 
 @mixin desktop-h-768() {
-  @media screen and (min-width: 1200px) and (min-height: 720px) and (max-height: 890px) {
+  @media screen and (min-width: 1200px) and (min-height: 650px) and (max-height: 890px) {
     @content;
   }
 }
